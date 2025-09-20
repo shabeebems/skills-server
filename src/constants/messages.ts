@@ -14,8 +14,8 @@ export enum Messages {
 
   CREATABLE_ROLES_FETCHED = "✅ Creatable roles fetched successfully based on your role.",
   USER_CREATED_SUCCESS = "✅ New user created successfully.",
-  SCHOOL_CREATED_SUCCESS = "✅ New school created successfully.",
-  SCHOOL_FETCH_SUCCESS = "✅ fetch all school success",
+  ORGANIZATION_CREATED_SUCCESS = "✅ New organization created successfully.",
+  ORGANIZATION_FETCH_SUCCESS = "✅ fetch all organization success",
 
   STATE_CREATED_SUCCESS = "✅ New state created successfully.",
   STATE_FETCH_SUCCESS = "✅ fetch all state success",
@@ -28,6 +28,9 @@ export enum Messages {
 
   SYSTEM_SETTING_UPDATED_SUCCESS = "✅ Value added or updated successfully.",
   SYSTEM_SETTING_FETCH_SUCCESS = "✅ Values fetched successfully.",
+
+  ADMIN_EMAIL_ALREADY_EXISTS = "❌ Admin email already exists",
+  MOBILE_NUMBER_ALREADY_EXISTS = "❌ Mobile number already exists",
 }
 
 export enum LogMessages {

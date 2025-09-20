@@ -5,7 +5,7 @@ import { corsMiddleware } from "./config/cors";
 import cookieParser from 'cookie-parser';
 import authRoutes from "./routes/auth.routes";
 import locationRoutes from "./routes/location.routes";
-import schoolRoutes from "./routes/school.route";
+import organizationRoutes from "./routes/organization.route";
 import userRoutes from "./routes/user.routes";
 import systemManagerRoutes from "./routes/systemSetting.routes";
 
@@ -20,7 +20,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api/schools", schoolRoutes);
+app.use("/api/organization", organizationRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/locations", locationRoutes);
