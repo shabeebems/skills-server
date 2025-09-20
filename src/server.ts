@@ -1,14 +1,20 @@
 import express from "express";
-import schoolRoutes from "./routes/school.route";
-import authRoutes from "./routes/auth.routes";
 import connectDB from "./config/db";
 import dotenv from "dotenv";
 import { corsMiddleware } from "./config/cors";
+import cookieParser from 'cookie-parser';
+import authRoutes from "./routes/auth.routes";
+import locationRoutes from "./routes/location.routes";
+import schoolRoutes from "./routes/school.route";
+import userRoutes from "./routes/user.routes";
+import systemManagerRoutes from "./routes/systemSetting.routes";
+
 
 dotenv.config();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(express.json());
 
@@ -16,6 +22,9 @@ connectDB();
 
 app.use("/api/schools", schoolRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/locations", locationRoutes);
+app.use("/api/system-manager", systemManagerRoutes);
 
 const PORT = process.env.PORT || 5000;
 

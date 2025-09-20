@@ -16,12 +16,12 @@ export async function handleRequest<T>(
     const { success, message, data } = await fn();
     const status = success ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
     res.status(status).json({ success, message, data });
-  } catch (error) {
+  } catch (error: any) {
     console.error(LogMessages.HANDLE_REQUEST_ERROR, error);
 
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: Messages.INTERNAL_SERVER_ERROR,
+      message: error.message,
     });
   }
 }

@@ -1,16 +1,13 @@
-import { Request, Response } from 'express';
-import { SchoolRepository } from '../repositories/school.repository';
-
-const schoolRepo = new SchoolRepository();
+import { Request, Response } from "express";
+import { SchoolService } from "../services/schools.service";
+import { handleRequest } from "../utils/handle-request.util";
 
 export class SchoolController {
-  async createSchool(req: Request, res: Response): Promise<Response> {
-    const school = await schoolRepo.create(req.body);
-    return res.status(201).json(school);
-  }
+  private schoolService = new SchoolService();
 
-  async getSchool(req: Request, res: Response): Promise<Response> {
-    const schools = await schoolRepo.findAll();
-    return res.status(200).json(schools);
-  }
+  public createSchool = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.schoolService.createSchool(req.body));
+
+  public getSchools = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.schoolService.getSchools());
 }
