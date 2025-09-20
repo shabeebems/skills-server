@@ -15,6 +15,6 @@ const systemSettingSchema = new Schema<ISystemSetting>(
   { timestamps: true, collection: "systemSettings" }
 );
 
-systemSettingSchema.index({ systemCode: 1 }, { unique: true });
+// Removed duplicate index declaration
 
 export default model<ISystemSetting>("SystemSetting", systemSettingSchema);

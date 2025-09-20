@@ -37,7 +37,6 @@ const organizationSchema = new Schema<IOrganization>(
   { timestamps: true, collection: "organizations" }
 );
 
-organizationSchema.index({ adminEmail: 1 }, { unique: true });
-organizationSchema.index({ mobileNumber: 1 }, { unique: true });
+// Removed duplicate index declarations
 
 export default model<IOrganization>("Organization", organizationSchema);
