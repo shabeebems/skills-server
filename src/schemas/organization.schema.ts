@@ -10,13 +10,21 @@ export const organizationSchema = z.object({
   adminName: z.string().min(2, "Admin name is required"),
   adminEmail: z.string().email("Invalid admin email"),
   mobileNumber: z.string().min(10, "Mobile number is required"),
-  alternateEmail: z.string().email("Invalid alternate email").optional(),
+  alternateEmail: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^\S+@\S+\.\S+$/.test(val), {
+      message: "Invalid alternate email",
+    }),
   address: z.string().min(2, "Address is required"),
   country: z.string().min(2, "Country is required"),
   state: z.string().min(2, "State is required"),
   district: z.string().min(2, "District is required"),
   pincode: z.string().min(2, "Pincode is required"),
-  status: z.string().optional(),
+  totalStudents: z.number().min(1, "Total students is required"),
+  totalTeachers: z.number().min(1, "Total teachers is required"),
+  principalName: z.string().min(2, "Principal name is required"),
+  status: z.enum(["pending", "active", "rejected", "inactive"]).optional(),
 });
 
 export type OrganizationInput = z.infer<typeof organizationSchema>;

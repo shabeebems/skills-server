@@ -13,7 +13,10 @@ export interface IOrganization extends Document {
   state: string;
   district: string;
   pincode: string;
-  status: string;
+  totalStudents: number;
+  totalTeachers: number;
+  principalName: string;
+  status: "pending" | "active" | "rejected" | "inactive";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -32,11 +35,17 @@ const organizationSchema = new Schema<IOrganization>(
     state: { type: String, required: true },
     district: { type: String, required: true },
     pincode: { type: String, required: true },
-    status: { type: String, required: true, default: "Active" },
+    totalStudents: { type: Number, required: true },
+    totalTeachers: { type: Number, required: true },
+    principalName: { type: String, required: true },
+    status: {
+      type: String,
+      enum: ["pending", "active", "rejected", "inactive"],
+      default: "pending",
+      required: true,
+    },
   },
   { timestamps: true, collection: "organizations" }
 );
-
-// Removed duplicate index declarations
 
 export default model<IOrganization>("Organization", organizationSchema);
