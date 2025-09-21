@@ -14,8 +14,6 @@ export enum Messages {
 
   CREATABLE_ROLES_FETCHED = "✅ Creatable roles fetched successfully based on your role.",
   USER_CREATED_SUCCESS = "✅ New user created successfully.",
-  ORGANIZATION_CREATED_SUCCESS = "✅ New organization created successfully.",
-  ORGANIZATION_FETCH_SUCCESS = "✅ fetch all organization success",
 
   // -------- Country --------
   COUNTRY_CREATED_SUCCESS = "Country created successfully",
@@ -40,8 +38,15 @@ export enum Messages {
   SYSTEM_SETTING_UPDATED_SUCCESS = "✅ Value added or updated successfully.",
   SYSTEM_SETTING_FETCH_SUCCESS = "✅ Values fetched successfully.",
 
-  ADMIN_EMAIL_ALREADY_EXISTS = "❌ Admin email already exists",
-  MOBILE_NUMBER_ALREADY_EXISTS = "❌ Mobile number already exists",
+  ORGANIZATION_CREATED_SUCCESS = "Organization created successfully.",
+  ORGANIZATION_FETCH_SUCCESS = "Organizations fetched successfully.",
+  ORGANIZATION_FETCH_SINGLE_SUCCESS = "Organization fetched successfully.",
+  ORGANIZATION_UPDATED_SUCCESS = "Organization updated successfully.",
+  ORGANIZATION_DELETED_SUCCESS = "Organization deleted successfully.",
+  ORGANIZATION_NOT_FOUND = "Organization not found.",
+  ORGANIZATION_STATUS_UPDATED = "Organization status updated successfully.",
+  ADMIN_EMAIL_ALREADY_EXISTS = "Admin email already exists.",
+  MOBILE_NUMBER_ALREADY_EXISTS = "Mobile number already exists.",
 }
 
 export enum LogMessages {
