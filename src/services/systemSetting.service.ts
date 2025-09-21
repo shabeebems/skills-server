@@ -28,4 +28,16 @@ export class SystemSettingService {
       data: formatSystemSettingOutput(result),
     };
   }
+
+  public async deleteValueBySystemCode(
+    systemCode: string,
+    value: string
+  ): Promise<ServiceResponse> {
+    const updated = await this.repo.deleteValue(systemCode, value);
+    return {
+      success: true,
+      message: Messages.SYSTEM_SETTING_UPDATED_SUCCESS,
+      data: formatSystemSettingOutput(updated),
+    };
+  }
 }

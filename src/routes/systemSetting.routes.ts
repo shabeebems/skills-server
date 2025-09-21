@@ -13,5 +13,6 @@ router.post(
 );
 
 router.get("/:systemCode", controller.getValuesBySystemCode);
+router.patch("/:systemCode", controller.deleteValueBySystemCode);
 
 export default router;

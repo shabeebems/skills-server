@@ -14,4 +14,9 @@ export class SystemSettingController {
     handleRequest(res, () =>
       this.service.getValuesBySystemCode(req.params.systemCode)
     );
+  
+  public deleteValueBySystemCode = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () =>
+      this.service.deleteValueBySystemCode(req.params.systemCode, req.body.value)
+    );
 }
