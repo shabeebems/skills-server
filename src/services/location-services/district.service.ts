@@ -16,7 +16,12 @@ export class DistrictService {
   }
 
   public async getDistrictsByStateCode(stateCode: string): Promise<ServiceResponse> {
-    const districts = await this.districtRepo.findByStateCode(stateCode);
+    let districts;
+    if (stateCode === "all") {
+      districts = await this.districtRepo.findAll();
+    } else {
+      districts = await this.districtRepo.findByStateCode(stateCode);
+    }
     return {
       success: true,
       message: Messages.DISTRICT_FETCH_SUCCESS,
@@ -25,11 +30,34 @@ export class DistrictService {
   }
 
   public async getDistrictsByCountryCode(countryCode: string): Promise<ServiceResponse> {
-    const districts = await this.districtRepo.findByCountryCode(countryCode);
+    let districts;
+    if (countryCode === "all") {
+      districts = await this.districtRepo.findAll();
+    } else {
+      districts = await this.districtRepo.findByCountryCode(countryCode);
+    }
     return {
       success: true,
       message: Messages.DISTRICT_FETCH_SUCCESS,
       data: districts,
+    };
+  }
+
+  public async updateDistrict(id: string, data: Partial<IDistrict>): Promise<ServiceResponse> {
+    const updated = await this.districtRepo.update(id, data);
+    return {
+      success: true,
+      message: Messages.DISTRICT_UPDATED_SUCCESS,
+      data: updated,
+    };
+  }
+
+  public async deleteDistrict(id: string): Promise<ServiceResponse> {
+    const deleted = await this.districtRepo.delete(id);
+    return {
+      success: true,
+      message: Messages.DISTRICT_DELETED_SUCCESS,
+      data: deleted,
     };
   }
 }

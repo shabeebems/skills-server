@@ -26,4 +26,17 @@ export class SystemSettingRepository extends BaseRepository<ISystemSetting> {
   ): Promise<ISystemSetting | null> {
     return this.model.findOne({ systemCode }).exec();
   }
+
+  public async deleteValue(
+    systemCode: string,
+    value: string
+  ): Promise<ISystemSetting | null> {
+    return this.model
+      .findOneAndUpdate(
+        { systemCode },
+        { $pull: { values: value } },
+        { new: true }
+      )
+      .exec();
+  }
 }

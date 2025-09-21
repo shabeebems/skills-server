@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model } from "mongoose";
 
 export abstract class BaseRepository<T extends Document> {
   constructor(protected model: Model<T>) {}

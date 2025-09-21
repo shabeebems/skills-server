@@ -17,14 +17,25 @@ export enum Messages {
   ORGANIZATION_CREATED_SUCCESS = "✅ New organization created successfully.",
   ORGANIZATION_FETCH_SUCCESS = "✅ fetch all organization success",
 
-  STATE_CREATED_SUCCESS = "✅ New state created successfully.",
-  STATE_FETCH_SUCCESS = "✅ fetch all state success",
+  // -------- Country --------
+  COUNTRY_CREATED_SUCCESS = "Country created successfully",
+  COUNTRY_FETCH_SUCCESS = "Countries fetched successfully",
+  COUNTRY_UPDATED_SUCCESS = "Country updated successfully",
+  COUNTRY_DELETED_SUCCESS = "Country deleted successfully",
+  COUNTRY_NOT_FOUND = "Country not found",
 
-  COUNTRY_CREATED_SUCCESS = "✅ Country created successfully.",
-  COUNTRY_FETCH_SUCCESS = "✅ Country fetched successfully.",
+  // -------- State --------
+  STATE_CREATED_SUCCESS = "State created successfully",
+  STATE_FETCH_SUCCESS = "States fetched successfully",
+  STATE_UPDATED_SUCCESS = "State updated successfully",
+  STATE_DELETED_SUCCESS = "State deleted successfully",
+  STATE_NOT_FOUND = "State not found",
 
-  DISTRICT_CREATED_SUCCESS = "✅ District created successfully.",
-  DISTRICT_FETCH_SUCCESS = "✅ Districts fetched successfully.",
+  // -------- District --------
+  DISTRICT_CREATED_SUCCESS = "District created successfully",
+  DISTRICT_FETCH_SUCCESS = "Districts fetched successfully",
+  DISTRICT_UPDATED_SUCCESS = "District updated successfully",
+  DISTRICT_DELETED_SUCCESS = "District deleted successfully",
 
   SYSTEM_SETTING_UPDATED_SUCCESS = "✅ Value added or updated successfully.",
   SYSTEM_SETTING_FETCH_SUCCESS = "✅ Values fetched successfully.",
