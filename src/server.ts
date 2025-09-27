@@ -8,6 +8,7 @@ import locationRoutes from "./routes/location.routes";
 import organizationRoutes from "./routes/organization.route";
 import userRoutes from "./routes/user.routes";
 import systemManagerRoutes from "./routes/systemSetting.routes";
+import organizationSetupRoutes from "./routes/organization-setup.routes";
 
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/organization", organizationRoutes);
+app.use("/api/organization-setup", organizationSetupRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/locations", locationRoutes);

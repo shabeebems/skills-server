@@ -22,4 +22,8 @@ export abstract class BaseRepository<T extends Document> {
   async delete(id: string): Promise<T | null> {
     return this.model.findByIdAndDelete(id).exec();
   }
+
+  async findByOrganizationId(organizationId: string): Promise<T[]> {
+    return this.model.find({ organizationId }).exec();
+  }
 }

@@ -17,6 +17,7 @@ export interface IOrganization extends Document {
   totalTeachers: number;
   principalName: string;
   status: "pending" | "active" | "rejected" | "inactive";
+  isSetupCompleted: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -42,6 +43,11 @@ const organizationSchema = new Schema<IOrganization>(
       type: String,
       enum: ["pending", "active", "rejected", "inactive"],
       default: "pending",
+      required: true,
+    },
+    isSetupCompleted: {
+      type: Boolean,
+      default: false,
       required: true,
     },
   },

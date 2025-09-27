@@ -26,13 +26,15 @@ export class OrganizationService {
 
   public async getOrganizations(filters: any): Promise<ServiceResponse> {
     const query: any = {};
-
     if (filters.name) query.name = { $regex: filters.name, $options: "i" };
     if (filters.country)
       query.country = { $regex: filters.country, $options: "i" };
     if (filters.state) query.state = { $regex: filters.state, $options: "i" };
     if (filters.district)
       query.district = { $regex: filters.district, $options: "i" };
+    if (filters.isSetupCompleted !== undefined) {
+      query.isSetupCompleted = filters.isSetupCompleted;
+    }
 
     const organizations = await this.organizationRepository.findByFilter(query);
 
