@@ -5,7 +5,12 @@ const userRouter: Router = Router();
 
 const userController = new UserController();
 
-userRouter.get('/creatable-roles', userController.getCreatableRoles);
-userRouter.post('/user', userController.createUser);
+userRouter.post('/', userController.createUser);
+userRouter.get('/filter', userController.findUsersByFilter);
+userRouter.get('/:id', userController.getUserById);
+userRouter.put("/:id", userController.updateUser)
+userRouter.delete("/:id", userController.deleteUser)
+
+userRouter.get('/:role', userController.getUsersByRoles);
 
 export default userRouter;
