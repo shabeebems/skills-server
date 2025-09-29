@@ -1,28 +1,66 @@
-import { Request, Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { Messages } from "../constants/messages";
 import { ServiceResponse } from "./types";
-import { fetchCreatableRoles, UserRole } from "../utils/role-hierarchy.utils";
 import { IUser } from "../models/user.model";
 
 export class UserService {
   private userRepository = new UserRepository();
 
-  public async getCreatableRoles(req: Request): Promise<ServiceResponse> {
-    const creatableRoles: UserRole[] = await fetchCreatableRoles(req);
-    return {
-      success: true,
-      message: Messages.CREATABLE_ROLES_FETCHED,
-      data: creatableRoles,
-    };
-  }
-
   public async createUser(data: IUser): Promise<ServiceResponse> {
-    const newUser = await this.userRepository.create(data)
+    data.password =
+      (data.name?.slice(0, 4).toUpperCase() || "USER") +
+      (data.mobile?.toString().slice(0, 4) || "0000");
+    console.log("Creating user with data:", data);
+    const newUser = await this.userRepository.create(data);
     return {
       success: true,
       message: Messages.USER_CREATED_SUCCESS,
-      data: newUser
+      data: newUser,
+    };
+  }
+
+  public async getUsersByRoles(role: string): Promise<ServiceResponse> {
+    const users = await this.userRepository.findByRole(role);
+    return {
+      success: true,
+      message: Messages.CREATABLE_ROLES_FETCHED,
+      data: users,
+    };
+  }
+
+  public async findUsersByFilter(query: object): Promise<ServiceResponse> {
+    const users = await this.userRepository.findByFilter(query);
+    return {
+      success: true,
+      message: Messages.CREATABLE_ROLES_FETCHED,
+      data: users,
+    };
+  }
+
+  public async getUserById(id: string): Promise<ServiceResponse> {
+    const users = await this.userRepository.findById(id);
+    return {
+      success: true,
+      message: Messages.CREATABLE_ROLES_FETCHED,
+      data: users,
+    };
+  }
+
+  public async updateUser(id: string, data: object): Promise<ServiceResponse> {
+    const users = await this.userRepository.update(id, data);
+    return {
+      success: true,
+      message: Messages.CREATABLE_ROLES_FETCHED,
+      data: users,
+    };
+  }
+
+  public async deleteUser(id: string): Promise<ServiceResponse> {
+    const users = await this.userRepository.delete(id);
+    return {
+      success: true,
+      message: Messages.CREATABLE_ROLES_FETCHED,
+      data: users,
     };
   }
 }
