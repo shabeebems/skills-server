@@ -10,10 +10,14 @@ export interface IUser extends Document {
   aadharCardNumber?: string;
   isVerified: boolean;
   isBlock: boolean;
-  status: "active" | "inactive"; // added status field
+  status: "active" | "inactive";
   createdAt: Date;
   updatedAt: Date;
+  organizationId?: Schema.Types.ObjectId;
   organizationIds?: Array<Schema.Types.ObjectId>;
+  departmentId?: Schema.Types.ObjectId;
+  classId?: Schema.Types.ObjectId;
+  sectionId?: Schema.Types.ObjectId;
 }
 
 const UserSchema: Schema<IUser> = new Schema(
@@ -31,7 +35,7 @@ const UserSchema: Schema<IUser> = new Schema(
     password: { type: String, required: true, trim: true },
     role: {
       type: String,
-      enum: ["master admin", "account manager", "principle", "hod", "teacher", "student"],
+      enum: ["master admin", "account manager", "principal", "hod", "teacher", "student"],
       required: true,
     },
     aadharCardNumber: { type: String, trim: true },
@@ -40,9 +44,18 @@ const UserSchema: Schema<IUser> = new Schema(
     status: {
       type: String,
       enum: ["active", "inactive"],
-      default: "active", // default active
+      default: "active",
     },
-    organizationIds: [{ type: Schema.Types.ObjectId, ref: "Organization" }],
+
+    // relations
+    organizationId: { type: Schema.Types.ObjectId, ref: "Organization" },
+    organizationIds: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Organization" }],
+      default: undefined,
+    },
+    departmentId: { type: Schema.Types.ObjectId, ref: "Department" },
+    classId: { type: Schema.Types.ObjectId, ref: "Class" },
+    sectionId: { type: Schema.Types.ObjectId, ref: "Section" },
   },
   { timestamps: true }
 );
