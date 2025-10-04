@@ -10,7 +10,6 @@ import userRoutes from "./routes/user.routes";
 import systemManagerRoutes from "./routes/systemSetting.routes";
 import organizationSetupRoutes from "./routes/organization-setup.routes";
 
-
 dotenv.config();
 
 const app = express();

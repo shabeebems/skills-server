@@ -4,6 +4,7 @@ import { ICountry } from "../../models/country.model";
 import { ServiceResponse } from "../types";
 import { DistrictRepository } from "../../repositories/location-repositories/district.repository";
 import { StateRepository } from "../../repositories/location-repositories/state.repository";
+import { formatCountriesOutput } from "../../views/location.view";
 
 export class CountryService {
   private countryRepo = new CountryRepository();
@@ -24,7 +25,7 @@ export class CountryService {
     return {
       success: true,
       message: Messages.COUNTRY_FETCH_SUCCESS,
-      data: countries,
+      data: formatCountriesOutput(countries),
     };
   }
 

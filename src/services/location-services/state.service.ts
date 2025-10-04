@@ -3,6 +3,7 @@ import { StateRepository } from "../../repositories/location-repositories/state.
 import { DistrictRepository } from "../../repositories/location-repositories/district.repository";
 import { IState } from "../../models/state.model";
 import { ServiceResponse } from "../types";
+import { formatStatesOutput } from "../../views/location.view";
 
 export class StateService {
   private stateRepo = new StateRepository();
@@ -29,7 +30,7 @@ export class StateService {
     return {
       success: true,
       message: Messages.STATE_FETCH_SUCCESS,
-      data: states,
+      data: formatStatesOutput(states),
     };
   }
 

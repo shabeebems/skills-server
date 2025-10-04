@@ -2,6 +2,7 @@ import { Messages } from "../../constants/messages";
 import { DistrictRepository } from "../../repositories/location-repositories/district.repository";
 import { IDistrict } from "../../models/district.model";
 import { ServiceResponse } from "../types";
+import { formatDistrictsOutput } from "../../views/location.view";
 
 export class DistrictService {
   private districtRepo = new DistrictRepository();
@@ -15,7 +16,9 @@ export class DistrictService {
     };
   }
 
-  public async getDistrictsByStateCode(stateCode: string): Promise<ServiceResponse> {
+  public async getDistrictsByStateCode(
+    stateCode: string
+  ): Promise<ServiceResponse> {
     let districts;
     if (stateCode === "all") {
       districts = await this.districtRepo.findAll();
@@ -25,11 +28,13 @@ export class DistrictService {
     return {
       success: true,
       message: Messages.DISTRICT_FETCH_SUCCESS,
-      data: districts,
+      data: formatDistrictsOutput(districts),
     };
   }
 
-  public async getDistrictsByCountryCode(countryCode: string): Promise<ServiceResponse> {
+  public async getDistrictsByCountryCode(
+    countryCode: string
+  ): Promise<ServiceResponse> {
     let districts;
     if (countryCode === "all") {
       districts = await this.districtRepo.findAll();
@@ -39,11 +44,14 @@ export class DistrictService {
     return {
       success: true,
       message: Messages.DISTRICT_FETCH_SUCCESS,
-      data: districts,
+      data: formatDistrictsOutput(districts),
     };
   }
 
-  public async updateDistrict(id: string, data: Partial<IDistrict>): Promise<ServiceResponse> {
+  public async updateDistrict(
+    id: string,
+    data: Partial<IDistrict>
+  ): Promise<ServiceResponse> {
     const updated = await this.districtRepo.update(id, data);
     return {
       success: true,

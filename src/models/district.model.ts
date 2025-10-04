@@ -19,7 +19,9 @@ const districtSchema = new Schema<IDistrict>(
   { timestamps: true, collection: "districts" }
 );
 
-// No need for this line because districtCode is already unique
-// districtSchema.index({ districtCode: 1 }, { unique: true });
+districtSchema.index({ stateCode: 1 });
+districtSchema.index({ countryCode: 1 });
+
+districtSchema.index({ countryCode: 1, stateCode: 1 });
 
 export default model<IDistrict>("District", districtSchema);

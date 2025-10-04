@@ -15,6 +15,9 @@ export class OrganizationController {
       this.organizationService.getOrganizations(req.query)
     );
 
+  public getOrganizationsCount = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.organizationService.getOrganizationsCount(req.query));
+
   public getOrganizationById = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () =>
       this.organizationService.getOrganizationById(req.params.id)
