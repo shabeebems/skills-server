@@ -12,9 +12,11 @@ export class SubjectService {
   }
 
   public async getAllSubjects(organizationId: string): Promise<ServiceResponse> {
-    const data = await this.subjectRepository.findByOrganizationId(organizationId);
+    const data = await this.subjectRepository.findAllByOrganizationWithDepartment(organizationId);
+    console.log(data);
     return { success: true, message: Messages.SUBJECT_FETCH_SUCCESS, data };
   }
+
 
   public async getSubjectById(id: string): Promise<ServiceResponse> {
     const data = await this.subjectRepository.findById(id);

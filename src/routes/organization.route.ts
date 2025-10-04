@@ -14,6 +14,10 @@ router.get("/", (req, res) =>
   organizationController.getOrganizations(req, res)
 );
 
+router.get("/counts", (req, res) =>
+  organizationController.getOrganizationsCount(req, res)
+);
+
 router.get("/:id", (req, res) =>
   organizationController.getOrganizationById(req, res)
 );

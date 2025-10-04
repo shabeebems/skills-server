@@ -4,6 +4,7 @@ import { IAssignment } from "../../models/assignment.model";
 import { AssignmentRepository } from "../../repositories/assignment.repository";
 import { AssignmentInput } from "../../schemas/organization-setup.schema";
 import { Types } from "mongoose";
+import { formatClassSectionView } from "../../views/organization-setup.view";
 
 export class AssignmentService {
   private assignmentRepository = new AssignmentRepository();
@@ -32,7 +33,6 @@ export class AssignmentService {
   public async getAllAssignments(
     organizationId: string, query: object
   ): Promise<ServiceResponse> {
-    console.log(query);
     const data = await this.assignmentRepository.findWithFilter(organizationId, query);
     return {
       success: true,
