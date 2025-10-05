@@ -1,3 +1,4 @@
+import { FilterQuery } from "mongoose";
 import { Document, Model } from "mongoose";
 
 export abstract class BaseRepository<T extends Document> {
@@ -25,5 +26,13 @@ export abstract class BaseRepository<T extends Document> {
 
   async findByOrganizationId(organizationId: string): Promise<T[]> {
     return this.model.find({ organizationId }).exec();
+  }
+
+  async findOne(filter: FilterQuery<T>): Promise<T | null> {
+    return this.model.findOne(filter).exec();
+  }
+
+  async find(filter: FilterQuery<T>): Promise<T[]> {
+    return this.model.find(filter).exec();
   }
 }

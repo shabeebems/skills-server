@@ -10,13 +10,13 @@ export interface ISection extends Document {
 
 const sectionSchema = new Schema<ISection>(
   {
-    name: { type: String, required: true },
-    description: { type: String },
+    name: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: "Organization",
       required: true,
-    }
+    },
   },
   { timestamps: true, collection: "sections" }
 );

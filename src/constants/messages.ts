@@ -47,13 +47,14 @@ export enum Messages {
   ORGANIZATION_STATUS_UPDATED = "Organization status updated successfully.",
   ADMIN_EMAIL_ALREADY_EXISTS = "Admin email already exists.",
   MOBILE_NUMBER_ALREADY_EXISTS = "Mobile number already exists.",
-  
+
   // -------- Department --------
   DEPARTMENT_CREATED_SUCCESS = "Department created successfully",
   DEPARTMENT_FETCH_SUCCESS = "Departments fetched successfully",
   DEPARTMENT_UPDATED_SUCCESS = "Department updated successfully",
   DEPARTMENT_DELETED_SUCCESS = "Department deleted successfully",
   DEPARTMENT_NOT_FOUND = "Department not found",
+  DEPARTMENT_ALREADY_EXISTS = "Department with this name already exists in the organization",
 
   // -------- Class --------
   CLASS_CREATED_SUCCESS = "Class created successfully",
@@ -61,6 +62,7 @@ export enum Messages {
   CLASS_UPDATED_SUCCESS = "Class updated successfully",
   CLASS_DELETED_SUCCESS = "Class deleted successfully",
   CLASS_NOT_FOUND = "Class not found",
+  CLASS_ALREADY_EXISTS = "Class with this name already exists in the organization",
 
   // -------- Section --------
   SECTION_CREATED_SUCCESS = "Section created successfully",
@@ -68,6 +70,7 @@ export enum Messages {
   SECTION_UPDATED_SUCCESS = "Section updated successfully",
   SECTION_DELETED_SUCCESS = "Section deleted successfully",
   SECTION_NOT_FOUND = "Section not found",
+  SECTION_ALREADY_EXISTS = "Section with this name already exists in the organization",
 
   // -------- Subject --------
   SUBJECT_CREATED_SUCCESS = "Subject created successfully",
@@ -75,6 +78,7 @@ export enum Messages {
   SUBJECT_UPDATED_SUCCESS = "Subject updated successfully",
   SUBJECT_DELETED_SUCCESS = "Subject deleted successfully",
   SUBJECT_NOT_FOUND = "Subject not found",
+  SUBJECT_ALREADY_EXISTS = "Subject with this name or code already exists in the organization and department",
 
   // -------- Assignment --------
   ASSIGNMENT_CREATED_SUCCESS = "Assignment created successfully",
@@ -82,6 +86,7 @@ export enum Messages {
   ASSIGNMENT_UPDATED_SUCCESS = "Assignment updated successfully",
   ASSIGNMENT_DELETED_SUCCESS = "Assignment deleted successfully",
   ASSIGNMENT_NOT_FOUND = "Assignment not found",
+  ASSIGNMENT_ALREADY_EXISTS = "Assignment already exists for one or more selected sections.",
 }
 
 export enum LogMessages {

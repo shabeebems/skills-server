@@ -8,11 +8,23 @@ export class DepartmentService {
   private departmentRepository = new DepartmentRepository();
 
   public async createDepartment(data: IDepartment): Promise<ServiceResponse> {
+    const existingDepartment = await this.departmentRepository.findOne({
+      name: data.name.trim(),
+      organizationId: data.organizationId,
+    });
+
+    if (existingDepartment) {
+      return {
+        success: false,
+        message: Messages.DEPARTMENT_ALREADY_EXISTS,
+      };
+    }
+
     const created = await this.departmentRepository.create(data);
+
     return {
       success: true,
       message: Messages.DEPARTMENT_CREATED_SUCCESS,
-      data: created,
     };
   }
 
@@ -29,24 +41,38 @@ export class DepartmentService {
     };
   }
 
-  public async getDepartmentById(id: string): Promise<ServiceResponse> {
-    const data = await this.departmentRepository.findById(id);
-    if (!data)
-      return { success: false, message: Messages.DEPARTMENT_NOT_FOUND };
-    return { success: true, message: Messages.DEPARTMENT_FETCH_SUCCESS, data };
-  }
-
   public async updateDepartment(
     id: string,
     payload: Partial<IDepartment>
   ): Promise<ServiceResponse> {
+    // If name is being updated, check for duplicates
+    console.log("Checking for existing department with name:", payload);
+    if (payload.name && payload.organizationId) {
+      const existingDepartment = await this.departmentRepository.findOne({
+        name: payload.name.trim(),
+        organizationId: payload.organizationId,
+        _id: { $ne: id }, // Exclude current department from check
+      });
+
+      if (existingDepartment) {
+        return {
+          success: false,
+          message: Messages.DEPARTMENT_ALREADY_EXISTS,
+        };
+      }
+    }
+
     const updated = await this.departmentRepository.update(id, payload);
-    if (!updated)
-      return { success: false, message: Messages.DEPARTMENT_NOT_FOUND };
+    if (!updated) {
+      return {
+        success: false,
+        message: Messages.DEPARTMENT_NOT_FOUND,
+      };
+    }
+
     return {
       success: true,
-      message: Messages.DEPARTMENT_UPDATED_SUCCESS,
-      data: updated,
+      message: Messages.DEPARTMENT_UPDATED_SUCCESS
     };
   }
 
@@ -57,7 +83,6 @@ export class DepartmentService {
     return {
       success: true,
       message: Messages.DEPARTMENT_DELETED_SUCCESS,
-      data: deleted,
     };
   }
 }

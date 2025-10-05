@@ -20,9 +20,6 @@ export class OrganizationSetupController {
   public getDepartments = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.departmentService.getAllDepartments(req.params.organizationId));
 
-  public getDepartmentById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.departmentService.getDepartmentById(req.params.id));
-
   public updateDepartment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.departmentService.updateDepartment(req.params.id, req.body));
 
@@ -35,9 +32,6 @@ export class OrganizationSetupController {
 
   public getClasses = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.classService.getAllClasses(req.params.organizationId));
-
-  public getClassById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.classService.getClassById(req.params.id));
 
   public updateClass = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.classService.updateClass(req.params.id, req.body));
@@ -52,9 +46,6 @@ export class OrganizationSetupController {
   public getSections = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.sectionService.getAllSections(req.params.organizationId));
 
-  public getSectionById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.sectionService.getSectionById(req.params.id));
-
   public updateSection = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.sectionService.updateSection(req.params.id, req.body));
 
@@ -68,9 +59,6 @@ export class OrganizationSetupController {
   public getSubjects = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.subjectService.getAllSubjects(req.params.organizationId));
 
-  public getSubjectById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.subjectService.getSubjectById(req.params.id));
-
   public updateSubject = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.subjectService.updateSubject(req.params.id, req.body));
 
@@ -83,12 +71,6 @@ export class OrganizationSetupController {
 
   public getAssignments = (req: Request, res: Response): Promise<void> =>
   handleRequest(res, () => this.assignmentService.getAllAssignments(req.params.organizationId, req.query));
-
-  public getAssignmentById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.assignmentService.getAssignmentById(req.params.id));
-
-  public updateAssignment = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.assignmentService.updateAssignment(req.params.id, req.body));
 
   public deleteAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.deleteAssignment(req.params.id));

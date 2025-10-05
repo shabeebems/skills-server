@@ -8,11 +8,22 @@ export class ClassService {
   private classRepository = new ClassRepository();
 
   public async createClass(data: IClass): Promise<ServiceResponse> {
-    const created = await this.classRepository.create(data);
+    const existingClass = await this.classRepository.findOne({
+      name: data.name.trim(),
+      organizationId: data.organizationId,
+    });
+
+    if (existingClass) {
+      return {
+        success: false,
+        message: Messages.CLASS_ALREADY_EXISTS,
+      };
+    }
+
+    await this.classRepository.create(data);
     return {
       success: true,
       message: Messages.CLASS_CREATED_SUCCESS,
-      data: created,
     };
   }
 
@@ -27,22 +38,38 @@ export class ClassService {
     };
   }
 
-  public async getClassById(id: string): Promise<ServiceResponse> {
-    const data = await this.classRepository.findById(id);
-    if (!data) return { success: false, message: Messages.CLASS_NOT_FOUND };
-    return { success: true, message: Messages.CLASS_FETCH_SUCCESS, data };
-  }
-
   public async updateClass(
     id: string,
     payload: Partial<IClass>
   ): Promise<ServiceResponse> {
+    // Check if name already exists in the same organization (excluding current class)
+    if (payload.name && payload.organizationId) {
+      const existingClass = await this.classRepository.findOne({
+        name: payload.name.trim(),
+        organizationId: payload.organizationId,
+        _id: { $ne: id }, // exclude current class
+      });
+
+      if (existingClass) {
+        return {
+          success: false,
+          message: Messages.CLASS_ALREADY_EXISTS,
+        };
+      }
+    }
+
+    // Proceed with update
     const updated = await this.classRepository.update(id, payload);
-    if (!updated) return { success: false, message: Messages.CLASS_NOT_FOUND };
+    if (!updated) {
+      return {
+        success: false,
+        message: Messages.CLASS_NOT_FOUND,
+      };
+    }
+
     return {
       success: true,
       message: Messages.CLASS_UPDATED_SUCCESS,
-      data: updated,
     };
   }
 
@@ -52,7 +79,6 @@ export class ClassService {
     return {
       success: true,
       message: Messages.CLASS_DELETED_SUCCESS,
-      data: deleted,
     };
   }
 }

@@ -12,53 +12,53 @@ export class AssignmentService {
   public async createAssignment(
     data: AssignmentInput
   ): Promise<ServiceResponse> {
-    // map sectionIds to individual assignment docs
-    const assignments = data.sectionIds.map((sectionId) => ({
+    const { classId, departmentId, organizationId, sectionIds } = data;
+    // Convert IDs to ObjectId
+    const sectionObjectIds = sectionIds.map((id) => new Types.ObjectId(id));
+
+    // Check if any assignment already exists for the given combination
+    const existingAssignments = await this.assignmentRepository.find({
+      sectionId: { $in: sectionObjectIds },
+      classId: new Types.ObjectId(classId),
+      departmentId: new Types.ObjectId(departmentId),
+      organizationId: new Types.ObjectId(organizationId),
+    });
+
+    if (existingAssignments.length > 0) {
+      return {
+        success: false,
+        message: Messages.ASSIGNMENT_ALREADY_EXISTS,
+      };
+    }
+
+    // If not exists, create new assignments
+    const assignments = sectionIds.map((sectionId) => ({
       sectionId: new Types.ObjectId(sectionId),
-      classId: new Types.ObjectId(data.classId),
-      departmentId: new Types.ObjectId(data.departmentId),
-      organizationId: new Types.ObjectId(data.organizationId),
+      classId: new Types.ObjectId(classId),
+      departmentId: new Types.ObjectId(departmentId),
+      organizationId: new Types.ObjectId(organizationId),
     }));
 
-    // create multiple documents at once
-    const created = await this.assignmentRepository.insertMany(assignments);
-
+    await this.assignmentRepository.insertMany(assignments);
     return {
       success: true,
       message: Messages.ASSIGNMENT_CREATED_SUCCESS,
-      data: created,
     };
   }
 
   public async getAllAssignments(
-    organizationId: string, query: object
+    organizationId: string,
+    query: object
   ): Promise<ServiceResponse> {
-    const data = await this.assignmentRepository.findWithFilter(organizationId, query);
+    const data = await this.assignmentRepository.findWithFilter(
+      organizationId,
+      query
+    );
+    console.log("Formatted Data: ", formatClassSectionView(data));
     return {
       success: true,
       message: Messages.ASSIGNMENT_FETCH_SUCCESS,
-      data,
-    };
-  }
-
-  public async getAssignmentById(id: string): Promise<ServiceResponse> {
-    const data = await this.assignmentRepository.findById(id);
-    if (!data)
-      return { success: false, message: Messages.ASSIGNMENT_NOT_FOUND };
-    return { success: true, message: Messages.ASSIGNMENT_FETCH_SUCCESS, data };
-  }
-
-  public async updateAssignment(
-    id: string,
-    payload: Partial<IAssignment>
-  ): Promise<ServiceResponse> {
-    const updated = await this.assignmentRepository.update(id, payload);
-    if (!updated)
-      return { success: false, message: Messages.ASSIGNMENT_NOT_FOUND };
-    return {
-      success: true,
-      message: Messages.ASSIGNMENT_UPDATED_SUCCESS,
-      data: updated,
+      data: formatClassSectionView(data),
     };
   }
 
