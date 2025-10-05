@@ -3,8 +3,6 @@ import { Schema, model, Document, Types } from "mongoose";
 export interface ISubject extends Document {
   name: string;
   code?: string;
-  credits?: number;
-  type?: string;
   description?: string;
   organizationId: Types.ObjectId; // reference to Organization
   departmentId: Types.ObjectId;   // reference to Department
@@ -14,11 +12,9 @@ export interface ISubject extends Document {
 
 const subjectSchema = new Schema<ISubject>(
   {
-    name: { type: String, required: true },
-    code: { type: String },
-    credits: { type: Number },
-    type: { type: String },
-    description: { type: String },
+    name: { type: String, required: true, trim: true },
+    code: { type: String, trim: true },
+    description: { type: String, trim: true },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: "Organization",

@@ -30,12 +30,16 @@ export const formatSectionsOutput = (sections: ISection[] | null) => {
   }));
 };
 
-export const formatSubjectOutput = (subjects: ISubject[] | null) => {
+export const formatSubjectOutput = (
+  subjects: (ISubject & { departmentId?: any })[] | null
+) => {
   if (!subjects) return [];
   return subjects.map((subject) => ({
     _id: subject._id,
     name: subject.name,
+    code: subject.code,
     description: subject.description,
+    department: subject.departmentId?.name,
   }));
 };
 
@@ -43,12 +47,11 @@ export const formatClassSectionView = (records: any[] | null) => {
   if (!records) return [];
   return records.map((record) => ({
     _id: record._id,
-    organizationId: record.organizationId,
-    departmentId: record.departmentId,
-    department: record.department,
-    classId: record.classId,
-    class: record.class,
-    sectionId: record.sectionId,
-    section: record.section,
+    departmentId: record.departmentId?._id,
+    department: record.departmentId?.name,
+    classId: record.classId?._id,
+    class: record.classId?.name,
+    sectionId: record.sectionId?._id,
+    section: record.sectionId?.name,
   }));
 };

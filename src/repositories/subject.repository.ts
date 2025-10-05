@@ -1,5 +1,5 @@
-import subjectModel, { ISubject } from '../models/subject.model';
-import { BaseRepository } from './base.repository';
+import subjectModel, { ISubject } from "../models/subject.model";
+import { BaseRepository } from "./base.repository";
 import { Types } from "mongoose";
 
 interface PopulatedDepartment {
@@ -12,18 +12,16 @@ export class SubjectRepository extends BaseRepository<ISubject> {
     super(subjectModel);
   }
 
-  async findAllByOrganizationWithDepartment(organizationId: string): Promise<any[]> {
+  async findAllByOrganizationWithDepartment(
+    organizationId: string
+  ): Promise<any[]> {
     const subjects = await this.model
       .find({ organizationId })
-      .populate<{ departmentId: PopulatedDepartment }>("departmentId", "_id name")
+      .populate<{ departmentId: PopulatedDepartment }>(
+        "departmentId",
+        "_id name"
+      )
       .lean();
-
-    return subjects.map(sub => ({
-      _id: sub._id,
-      name: sub.name,
-      organizationId: sub.organizationId,
-      departmentId: sub.departmentId?._id,
-      department: (sub.departmentId as PopulatedDepartment)?.name
-    }));
+    return subjects;
   }
 }

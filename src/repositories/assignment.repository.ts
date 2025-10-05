@@ -11,13 +11,12 @@ export class AssignmentRepository extends BaseRepository<IAssignment> {
     return this.model.insertMany(data) as unknown as IAssignment[];
   }
 
-  // ✅ new method to handle dynamic queries
   async findWithFilter(
     organizationId: string,
     filters?: { departmentId?: string; classId?: string }
-  ): Promise<any[]> {
+  ): Promise<IAssignment[]> {
     const query: any = {
-      organizationId: new Types.ObjectId(organizationId), // always required
+      organizationId: new Types.ObjectId(organizationId),
     };
 
     if (filters?.departmentId) {
@@ -28,25 +27,11 @@ export class AssignmentRepository extends BaseRepository<IAssignment> {
       query.classId = new Types.ObjectId(filters.classId);
     }
 
-    const assignments = await this.model
+    return this.model
       .find(query)
-      .populate("departmentId", "name") // only fetch department name + _id
-      .populate("classId", "name") // only fetch class name + _id
-      .populate("sectionId", "name") // only fetch section name + _id
+      .populate("departmentId", "name")
+      .populate("classId", "name")
+      .populate("sectionId", "name")
       .exec();
-
-    // transform into desired shape
-    return assignments.map((a: any) => ({
-      _id: a._id,
-      organizationId: a.organizationId,
-      departmentId: a.departmentId?._id,
-      department: a.departmentId?.name,
-      classId: a.classId?._id,
-      class: a.classId?.name,
-      sectionId: a.sectionId?._id,
-      section: a.sectionId?.name,
-      createdAt: a.createdAt,
-      updatedAt: a.updatedAt,
-    }));
   }
 }
