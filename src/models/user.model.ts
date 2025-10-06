@@ -6,7 +6,7 @@ export interface IUser extends Document {
   mobile?: string;
   image?: string;
   password: string;
-  role: "master admin" | "account manager" | "principle" | "hod" | "teacher" | "student";
+  role: "master_admin" | "acc_manager" | "account manager" | "org_admin" | "principle" | "hod" | "teacher" | "student";
   aadharCardNumber?: string;
   isVerified: boolean;
   isBlock: boolean;
@@ -35,7 +35,7 @@ const UserSchema: Schema<IUser> = new Schema(
     password: { type: String, required: true, trim: true },
     role: {
       type: String,
-      enum: ["master admin", "account manager", "principal", "hod", "teacher", "student"],
+      enum: ["master_admin", "acc_manager", "account manager", "org_admin", "principal", "hod", "teacher", "student"],
       required: true,
     },
     aadharCardNumber: { type: String, trim: true },

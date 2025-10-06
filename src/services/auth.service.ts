@@ -15,8 +15,8 @@ export class AuthService {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) return { success: false, message: Messages.USER_NOT_FOUND };
 
-    const isPasswordValid = await bcrypt.compare(data.password, user.password);
-    if (!isPasswordValid)
+    // const isPasswordValid = await bcrypt.compare(data.password, user.password);
+    if (data.password != user.password)
       return { success: false, message: Messages.PASSWORD_INCORRECT };
 
     if (user.isBlock) return { success: false, message: Messages.USER_BLOCKED };
@@ -27,6 +27,6 @@ export class AuthService {
     createAccessToken(res, payload);
     createRefreshToken(res, payload);
 
-    return { success: true, message: Messages.LOGIN_SUCCESS };
+    return { success: true, message: Messages.LOGIN_SUCCESS, data: payload };
   }
 }
