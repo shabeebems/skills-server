@@ -6,7 +6,7 @@ export interface IUser extends Document {
   mobile?: string;
   image?: string;
   password: string;
-  role: "master_admin" | "acc_manager" | "account manager" | "org_admin" | "principle" | "hod" | "teacher" | "student";
+  role: "master_admin" | "acc_manager" | "account manager" | "org_admin" | "principal" | "hod" | "teacher" | "student";
   aadharCardNumber?: string;
   isVerified: boolean;
   isBlock: boolean;
@@ -16,8 +16,7 @@ export interface IUser extends Document {
   organizationId?: Schema.Types.ObjectId;
   organizationIds?: Array<Schema.Types.ObjectId>;
   departmentId?: Schema.Types.ObjectId;
-  classId?: Schema.Types.ObjectId;
-  sectionId?: Schema.Types.ObjectId;
+  assignmentId?: Schema.Types.ObjectId; // Replaced classId and sectionId
 }
 
 const UserSchema: Schema<IUser> = new Schema(
@@ -54,8 +53,7 @@ const UserSchema: Schema<IUser> = new Schema(
       default: undefined,
     },
     departmentId: { type: Schema.Types.ObjectId, ref: "Department" },
-    classId: { type: Schema.Types.ObjectId, ref: "Class" },
-    sectionId: { type: Schema.Types.ObjectId, ref: "Section" },
+    assignmentId: { type: Schema.Types.ObjectId, ref: "Assignment" }, // New field
   },
   { timestamps: true }
 );

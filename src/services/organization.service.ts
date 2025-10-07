@@ -43,6 +43,10 @@ export class OrganizationService {
       }
     }
 
+    if (filters.isSetupCompleted !== undefined) {
+      query.isSetupCompleted = filters.isSetupCompleted;
+    }
+
     // If pagination params exist
     if (filters.page || filters.limit) {
       const page = parseInt(filters.page as string) || 1;
@@ -80,7 +84,6 @@ export class OrganizationService {
       const organizations = await this.organizationRepository.findAllByFilter(
         query
       );
-
       return {
         success: true,
         message: Messages.ORGANIZATION_FETCH_SUCCESS,
@@ -88,10 +91,6 @@ export class OrganizationService {
       };
     }
   }
-
-  // if (filters.isSetupCompleted !== undefined) {
-  //   query.isSetupCompleted = filters.isSetupCompleted;
-  // }
 
   public async getOrganizationsCount(filters: any): Promise<ServiceResponse> {
     const query: any = {};

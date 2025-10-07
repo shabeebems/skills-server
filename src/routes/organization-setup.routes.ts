@@ -14,12 +14,14 @@ router.delete("/departments/:id", controller.deleteDepartment);
 // -------- Classes --------
 router.post("/classes", validate(classSchema), controller.createClass);
 router.get("/classes/:organizationId", controller.getClasses);
+router.get("/classes/:organizationId/:departmentId", controller.getClassesByDepartmentsFromAssignments);
 router.put("/classes/:id", validate(classSchema), controller.updateClass);
 router.delete("/classes/:id", controller.deleteClass);
 
 // -------- Sections --------
 router.post("/sections", validate(sectionSchema), controller.createSection);
 router.get("/sections/:organizationId", controller.getSections);
+router.get("/sections/:organizationId/:departmentId/:classId", controller.getSectionsByClassFromAssignments);
 router.put("/sections/:id", validate(sectionSchema), controller.updateSection);
 router.delete("/sections/:id", controller.deleteSection);
 
