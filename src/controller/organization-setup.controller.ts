@@ -33,6 +33,9 @@ export class OrganizationSetupController {
   public getClasses = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.classService.getAllClasses(req.params.organizationId));
 
+  public getClassesByDepartmentsFromAssignments = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.classService.getClassesByDepartmentsFromAssignments(req.params));
+  
   public updateClass = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.classService.updateClass(req.params.id, req.body));
 
@@ -45,6 +48,9 @@ export class OrganizationSetupController {
 
   public getSections = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.sectionService.getAllSections(req.params.organizationId));
+
+  public getSectionsByClassFromAssignments = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.sectionService.getSectionsByClassFromAssignments(req.params));
 
   public updateSection = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.sectionService.updateSection(req.params.id, req.body));

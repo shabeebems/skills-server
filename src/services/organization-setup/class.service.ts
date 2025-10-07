@@ -3,9 +3,11 @@ import { ServiceResponse } from "../types";
 import { IClass } from "../../models/class.model";
 import { ClassRepository } from "../../repositories/class.repository";
 import { formatClassOutput } from "../../views/organization-setup.view";
+import { AssignmentRepository } from "../../repositories/assignment.repository";
 
 export class ClassService {
   private classRepository = new ClassRepository();
+  private assignmentRepository = new AssignmentRepository();
 
   public async createClass(data: IClass): Promise<ServiceResponse> {
     const existingClass = await this.classRepository.findOne({
@@ -35,6 +37,20 @@ export class ClassService {
       success: true,
       message: Messages.CLASS_FETCH_SUCCESS,
       data: formatClassOutput(data),
+    };
+  }
+
+  public async getClassesByDepartmentsFromAssignments(
+    ids: any
+  ): Promise<ServiceResponse> {
+    const data = await this.assignmentRepository.findUniqueClassesByDepartment(
+      ids.organizationId,
+      ids.departmentId
+    );
+    return {
+      success: true,
+      message: Messages.CLASS_FETCH_SUCCESS,
+      data,
     };
   }
 

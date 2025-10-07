@@ -3,9 +3,11 @@ import { ServiceResponse } from "../types";
 import { ISection } from "../../models/section.model";
 import { SectionRepository } from "../../repositories/section.repository";
 import { formatSectionsOutput } from "../../views/organization-setup.view";
+import { AssignmentRepository } from "../../repositories/assignment.repository";
 
 export class SectionService {
   private sectionRepository = new SectionRepository();
+  private assignmentRepository = new AssignmentRepository();
 
   public async createSection(data: ISection): Promise<ServiceResponse> {
     const existingSection = await this.sectionRepository.findOne({
@@ -38,6 +40,23 @@ export class SectionService {
       success: true,
       message: Messages.SECTION_FETCH_SUCCESS,
       data: formatSectionsOutput(data),
+    };
+  }
+
+  public async getSectionsByClassFromAssignments(
+    ids: any
+  ): Promise<ServiceResponse> {
+    const data =
+      await this.assignmentRepository.findUniqueSectionsByDepartmentAndClass(
+        ids.organizationId,
+        ids.departmentId,
+        ids.classId
+      );
+      console.log("Sections by class from assignments:", data);
+    return {
+      success: true,
+      message: Messages.SECTION_FETCH_SUCCESS,
+      data,
     };
   }
 

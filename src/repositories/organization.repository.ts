@@ -27,7 +27,7 @@ export class OrganizationRepository extends BaseRepository<IOrganization> {
   ): Promise<IOrganization[]> {
     return this.model
       .find(query)
-      .sort({ createdAt: -1 }) // Sort by latest first
+      .sort({ createdAt: -1, _id: -1 }) // Add secondary sort by _id
       .skip(skip)
       .limit(limit)
       .exec();

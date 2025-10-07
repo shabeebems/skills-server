@@ -1,6 +1,5 @@
 import { Messages } from "../../constants/messages";
 import { ServiceResponse } from "../types";
-import { IAssignment } from "../../models/assignment.model";
 import { AssignmentRepository } from "../../repositories/assignment.repository";
 import { AssignmentInput } from "../../schemas/organization-setup.schema";
 import { Types } from "mongoose";
