@@ -2,9 +2,12 @@ import { Router } from "express";
 import { OrganizationController } from "../controller/organization.controller";
 import { validate } from "../middlewares/zodValidate";
 import { organizationSchema } from "../schemas/organization.schema";
+import { authenticateToken } from "../middlewares/tokenValidation";
 
 const router = Router();
 const organizationController = new OrganizationController();
+
+router.use(authenticateToken(["master_admin"]));
 
 router.post("/", validate(organizationSchema), (req, res) =>
   organizationController.createOrganization(req, res)
