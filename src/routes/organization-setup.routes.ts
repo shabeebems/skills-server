@@ -2,8 +2,11 @@ import express from "express";
 import { OrganizationSetupController } from "../controller/organization-setup.controller";
 import { validate } from "../middlewares/zodValidate";
 import { classSchema, departmentSchema, sectionSchema, subjectSchema, assignmentSchema } from "../schemas/organization-setup.schema";
+import { authenticateToken } from "../middlewares/tokenValidation";
 const router = express.Router();
 const controller = new OrganizationSetupController();
+
+router.use(authenticateToken(["master_admin"]));
 
 // -------- Departments --------
 router.post("/departments", validate(departmentSchema), controller.createDepartment);

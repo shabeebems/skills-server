@@ -2,9 +2,12 @@ import express from "express";
 import { LocationController } from "../controller/location.controller";
 import { validate } from "../middlewares/zodValidate";
 import { countrySchema, stateSchema, districtSchema } from "../schemas/location.schema";
+import { authenticateToken } from "../middlewares/tokenValidation";
 
 const router = express.Router();
 const locationController = new LocationController();
+
+router.use(authenticateToken(["master_admin"]));
 
 // Country
 router.post("/countries", validate(countrySchema), locationController.createCountry);
