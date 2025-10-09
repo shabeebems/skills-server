@@ -2,6 +2,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { Messages } from "../constants/messages";
 import { ServiceResponse } from "./types";
 import { IUser } from "../models/user.model";
+import { formatUsersOutput } from "../views/user.view";
 
 export class UserService {
   private userRepository = new UserRepository();
@@ -10,7 +11,6 @@ export class UserService {
     data.password =
       (data.name?.slice(0, 4).toUpperCase() || "USER") +
       (data.mobile?.toString().slice(0, 4) || "0000");
-    console.log("Creating user with data:", data);
     const newUser = await this.userRepository.create(data);
     return {
       success: true,
@@ -19,26 +19,18 @@ export class UserService {
     };
   }
 
-  public async getUsersByRoles(role: string): Promise<ServiceResponse> {
-    const users = await this.userRepository.findByRole(role);
-    return {
-      success: true,
-      message: Messages.CREATABLE_ROLES_FETCHED,
-      data: users,
-    };
-  }
-
   public async findUsersByFilter(query: object): Promise<ServiceResponse> {
     const users = await this.userRepository.findByFilter(query);
     return {
       success: true,
       message: Messages.CREATABLE_ROLES_FETCHED,
-      data: users,
+      data: formatUsersOutput(users),
     };
   }
 
-  public async getUserById(id: string): Promise<ServiceResponse> {
-    const users = await this.userRepository.findById(id);
+  public async getAccManagerById(id: string): Promise<ServiceResponse> {
+    const users = await this.userRepository.findOneWithOrganizations(id);
+    console.log("Fetched user:", users);
     return {
       success: true,
       message: Messages.CREATABLE_ROLES_FETCHED,

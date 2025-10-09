@@ -9,11 +9,10 @@ const userController = new UserController();
 userRouter.use(authenticateToken(["master_admin"]));
 
 userRouter.post('/', userController.createUser);
-userRouter.get('/filter', userController.findUsersByFilter);
-userRouter.get('/:id', userController.getUserById);
+userRouter.get('/', userController.findUsersByFilter);
 userRouter.put("/:id", userController.updateUser)
 userRouter.delete("/:id", userController.deleteUser)
 
-userRouter.get('/:role', userController.getUsersByRoles);
+userRouter.get('/acc_manager/:id', userController.getAccManagerById);
 
 export default userRouter;

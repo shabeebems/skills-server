@@ -8,14 +8,11 @@ export class UserController {
   public createUser = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.userService.createUser(req.body));
 
-  public getUsersByRoles = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.userService.getUsersByRoles(req.params.role));
-
   public findUsersByFilter = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.userService.findUsersByFilter(req.query));
 
-  public getUserById = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.userService.getUserById(req.params.id));
+  public getAccManagerById = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.userService.getAccManagerById(req.params.id));
 
   public updateUser = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.userService.updateUser(req.params.id, req.body));

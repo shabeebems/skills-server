@@ -10,9 +10,6 @@ export class UserRepository extends BaseRepository<IUser> {
   findByEmail = (email: string): Promise<IUser | null> =>
     this.model.findOne({ email });
 
-  findByRole = (role: string): Promise<IUser[]> => this.model.find({ role });
-
-  // ✅ New method
   findByFilter = (filters: {
     role?: string;
     name?: string;
@@ -27,7 +24,7 @@ export class UserRepository extends BaseRepository<IUser> {
     if (filters.mobile)
       query.mobile = { $regex: filters.mobile, $options: "i" };
 
-    return this.model.find(query).populate("organizationIds");
+    return this.model.find(query);
   };
 
   findUserByToken = (
@@ -36,5 +33,13 @@ export class UserRepository extends BaseRepository<IUser> {
   ): Promise<IUser | null> => {
     const verify: any = jwt.verify(token, jwtSecret);
     return this.findByEmail(verify.email);
+  };
+
+  findOneWithOrganizations = (id: string): Promise<IUser | null> => {
+    return this.model.findById(id).populate({
+      path: "organizationIds",
+      select:
+        "name board establishedYear adminName address country state district",
+    });
   };
 }
