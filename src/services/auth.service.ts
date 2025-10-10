@@ -3,7 +3,12 @@ import { Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { Messages } from "../constants/messages";
 import { LoginRequest, ServiceResponse } from "./types";
-import { createAccessToken, createRefreshToken } from "../utils/jwt";
+import {
+  clearAccessToken,
+  clearRefreshToken,
+  createAccessToken,
+  createRefreshToken,
+} from "../utils/jwt";
 
 export class AuthService {
   private userRepository = new UserRepository();
@@ -23,10 +28,16 @@ export class AuthService {
 
     const { _id, email, role } = user;
     const payload = { _id, email, role };
-  
+
     createAccessToken(res, payload);
     createRefreshToken(res, payload);
 
     return { success: true, message: Messages.LOGIN_SUCCESS, data: payload };
+  }
+
+  public async logout(res: Response): Promise<ServiceResponse> {
+    clearRefreshToken(res);
+    clearAccessToken(res);
+    return { success: true, message: Messages.LOGOUT_SUCCESS };
   }
 }

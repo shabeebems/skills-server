@@ -7,4 +7,7 @@ export class AuthController {
 
   public login = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.authService.login(res, req.body));
+
+  public logout = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.authService.logout(res));
 }
