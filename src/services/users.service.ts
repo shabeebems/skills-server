@@ -11,6 +11,7 @@ export class UserService {
     data.password =
       (data.name?.slice(0, 4).toUpperCase() || "USER") +
       (data.mobile?.toString().slice(0, 4) || "0000");
+
     const newUser = await this.userRepository.create(data);
     return {
       success: true,

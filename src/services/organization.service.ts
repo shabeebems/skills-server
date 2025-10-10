@@ -3,9 +3,12 @@ import { ServiceResponse } from "./types";
 import { IOrganization } from "../models/organization.model";
 import { OrganizationRepository } from "../repositories/organization.repository";
 import { formatOrganizationsOutput } from "../views/organization.view";
+import { UserService } from "./users.service";
+import { IUser } from "../models/user.model";
 
 export class OrganizationService {
   private organizationRepository = new OrganizationRepository();
+  private userService = new UserService();
 
   public async createOrganization(
     data: IOrganization
@@ -17,7 +20,18 @@ export class OrganizationService {
     if (await this.organizationRepository.existsByMobile(data.mobileNumber)) {
       return { success: false, message: Messages.MOBILE_NUMBER_ALREADY_EXISTS };
     }
+
     const newOrganization = await this.organizationRepository.create(data);
+
+    const orgAdminData = {
+      organizationId: newOrganization._id,
+      name: newOrganization.adminName,
+      email: newOrganization.adminEmail,
+      mobile: newOrganization.mobileNumber,
+      role: "org_admin",
+    };
+
+    await this.userService.createUser(orgAdminData as IUser);
     return {
       success: true,
       message: Messages.ORGANIZATION_CREATED_SUCCESS,
