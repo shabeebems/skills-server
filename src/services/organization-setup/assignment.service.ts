@@ -4,9 +4,12 @@ import { AssignmentRepository } from "../../repositories/assignment.repository";
 import { AssignmentInput } from "../../schemas/organization-setup.schema";
 import { Types } from "mongoose";
 import { formatClassSectionView } from "../../views/organization-setup.view";
+import { OrganizationRepository } from "../../repositories/organization.repository";
+import { console } from "inspector";
 
 export class AssignmentService {
   private assignmentRepository = new AssignmentRepository();
+  private organizationRepository = new OrganizationRepository();
 
   public async createAssignment(
     data: AssignmentInput
@@ -39,6 +42,15 @@ export class AssignmentService {
     }));
 
     await this.assignmentRepository.insertMany(assignments);
+    
+    // ✅ Check and update organization setup status
+    const organization = await this.organizationRepository.findById(
+      organizationId
+    );
+    if (organization && organization.isSetupCompleted === false) {
+      organization.isSetupCompleted = true;
+      await organization.save();
+    }
     return {
       success: true,
       message: Messages.ASSIGNMENT_CREATED_SUCCESS,
@@ -53,7 +65,6 @@ export class AssignmentService {
       organizationId,
       query
     );
-    console.log("Formatted Data: ", formatClassSectionView(data));
     return {
       success: true,
       message: Messages.ASSIGNMENT_FETCH_SUCCESS,
