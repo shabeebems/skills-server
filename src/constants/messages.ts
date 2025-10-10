@@ -87,6 +87,7 @@ export enum Messages {
   ASSIGNMENT_DELETED_SUCCESS = "Assignment deleted successfully",
   ASSIGNMENT_NOT_FOUND = "Assignment not found",
   ASSIGNMENT_ALREADY_EXISTS = "Assignment already exists for one or more selected sections.",
+  LOGOUT_SUCCESS = "You have been logged out successfully.",
 }
 
 export enum LogMessages {
