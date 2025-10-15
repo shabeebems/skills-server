@@ -5,7 +5,6 @@ import { AssignmentInput } from "../../schemas/organization-setup.schema";
 import { Types } from "mongoose";
 import { formatClassSectionView } from "../../views/organization-setup.view";
 import { OrganizationRepository } from "../../repositories/organization.repository";
-import { console } from "inspector";
 
 export class AssignmentService {
   private assignmentRepository = new AssignmentRepository();

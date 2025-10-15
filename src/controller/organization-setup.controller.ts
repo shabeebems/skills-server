@@ -5,6 +5,7 @@ import { ClassService } from "../services/organization-setup/class.service";
 import { SectionService } from "../services/organization-setup/section.service";
 import { SubjectService } from "../services/organization-setup/subject.service";
 import { AssignmentService } from "../services/organization-setup/assignment.service";
+import { TeachingAssignmentService } from "../services/organization-setup/teachingAssignment.service";
 
 export class OrganizationSetupController {
   private departmentService = new DepartmentService();
@@ -12,6 +13,7 @@ export class OrganizationSetupController {
   private sectionService = new SectionService();
   private subjectService = new SubjectService();
   private assignmentService = new AssignmentService();
+  private teachingAssignmentService = new TeachingAssignmentService();
 
   // -------- Department --------
   public createDepartment = (req: Request, res: Response): Promise<void> =>
@@ -71,6 +73,9 @@ export class OrganizationSetupController {
   public deleteSubject = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.subjectService.deleteSubject(req.params.id));
 
+  public getSubjectsByDepartment = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.subjectService.getSubjectsByDepartment(req.params));
+
   // -------- Assignment --------
   public createAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.createAssignment(req.body));
@@ -80,6 +85,14 @@ export class OrganizationSetupController {
 
   public deleteAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.deleteAssignment(req.params.id));
+
+  public createTeachingAssignment = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.teachingAssignmentService.createTeachingAssignment(req.body));
+
+  public getTeachingAssignments = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.teachingAssignmentService.getTeachingAssignments(req.params.organizationId));
+
+  public assignTeacher = (req: any, res: Response): Promise<void> =>
+    handleRequest(res, () => this.teachingAssignmentService.assignTeacher(req.params, req.body));
+
 }
-
-

@@ -1,12 +1,13 @@
 import express from "express";
 import { OrganizationSetupController } from "../controller/organization-setup.controller";
 import { validate } from "../middlewares/zodValidate";
-import { classSchema, departmentSchema, sectionSchema, subjectSchema, assignmentSchema } from "../schemas/organization-setup.schema";
+import { classSchema, departmentSchema, sectionSchema, subjectSchema, assignmentSchema, teachingAssignmentSchema, assignTeacherSchema } from "../schemas/organization-setup.schema";
 import { authenticateToken } from "../middlewares/tokenValidation";
+
 const router = express.Router();
 const controller = new OrganizationSetupController();
 
-router.use(authenticateToken(["master_admin"]));
+router.use(authenticateToken(["master_admin", "org_admin"]));
 
 // -------- Departments --------
 router.post("/departments", validate(departmentSchema), controller.createDepartment);
@@ -33,10 +34,15 @@ router.post("/subjects", validate(subjectSchema), controller.createSubject);
 router.get("/subjects/:organizationId", controller.getSubjects);
 router.put("/subjects/:id", validate(subjectSchema), controller.updateSubject);
 router.delete("/subjects/:id", controller.deleteSubject);
+router.get("/subjects/:organizationId/:departmentId", controller.getSubjectsByDepartment);
 
 // -------- Assignments --------
 router.post("/assignments", validate(assignmentSchema), controller.createAssignment);
 router.get("/assignments/:organizationId", controller.getAssignments);
 router.delete("/assignments/:id", controller.deleteAssignment);
+
+router.post("/teachingAssignments", validate(teachingAssignmentSchema), controller.createTeachingAssignment);
+router.get("/teachingAssignments/:organizationId", controller.getTeachingAssignments);
+router.patch("/teachingAssignments/:assignmentId/teachers/:subjectId", validate(assignTeacherSchema), controller.assignTeacher);
 
 export default router;
