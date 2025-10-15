@@ -91,4 +91,12 @@ export class SubjectService {
       message: Messages.SUBJECT_DELETED_SUCCESS,
     };
   }
+
+  public async getSubjectsByDepartment(ids: any): Promise<ServiceResponse> {
+    const data = await this.subjectRepository.find({
+      organizationId: ids.organizationId,
+      departmentId: ids.departmentId,
+    });
+    return { message: Messages.SUBJECT_FETCH_SUCCESS, success: true, data };
+  }
 }

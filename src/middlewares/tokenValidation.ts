@@ -33,6 +33,7 @@ export const authenticateToken = (allowedRoles: string[]) => {
           _id: userDetails._id.toString(),
           email: userDetails.email,
           role: userDetails.role,
+          organizationId: userDetails.organizationId || null,
         };
 
         next();

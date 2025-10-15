@@ -59,3 +59,31 @@ export const assignmentSchema = z.object({
 });
 
 export type AssignmentInput = z.infer<typeof assignmentSchema>;
+
+// Teaching Assignment schema
+export const teachingAssignmentSchema = z.object({
+  organizationId: z
+    .string()
+    .min(24, "Organization ID must be a valid ObjectId"),
+  assignmentId: z.string().min(24, "Assignment ID must be a valid ObjectId"),
+  assignedSubTeachers: z
+    .array(
+      z.object({
+        subjectId: z.string().min(24, "Subject ID must be a valid ObjectId"),
+        teacherId: z
+          .string()
+          .min(24, "Teacher ID must be a valid ObjectId")
+          .optional(),
+      })
+    )
+    .nonempty("At least one assigned subject is required"),
+});
+
+export type TeachingAssignmentInput = z.infer<typeof teachingAssignmentSchema>;
+
+export const assignTeacherSchema = z.object({
+  organizationId: z.string().min(24, "Organization ID must be a valid ObjectId"),
+  teacherId: z.string().min(24, "Teacher ID must be a valid ObjectId"),
+});
+
+export type AssignTeacherInput = z.infer<typeof assignTeacherSchema>;

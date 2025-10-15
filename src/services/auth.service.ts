@@ -26,8 +26,8 @@ export class AuthService {
 
     if (user.isBlock) return { success: false, message: Messages.USER_BLOCKED };
 
-    const { _id, email, role } = user;
-    const payload = { _id, email, role };
+    const { _id, email, role, organizationId } = user;
+    const payload = { _id, email, role, organizationId };
 
     createAccessToken(res, payload);
     createRefreshToken(res, payload);

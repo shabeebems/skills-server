@@ -88,6 +88,11 @@ export enum Messages {
   ASSIGNMENT_NOT_FOUND = "Assignment not found",
   ASSIGNMENT_ALREADY_EXISTS = "Assignment already exists for one or more selected sections.",
   LOGOUT_SUCCESS = "You have been logged out successfully.",
+
+  // -------- Teaching Assignment --------
+  TEACHING_ASSIGNMENT_CREATED_SUCCESS = "Teaching assignment created successfully",
+  TEACHING_ASSIGNMENTS_FETCHED_SUCCESS = "Teaching assignments fetched successfully",
+  TEACHING_ASSIGNMENT_UPDATED_SUCCESS = "Teaching assignment updated successfully",
 }
 
 export enum LogMessages {
