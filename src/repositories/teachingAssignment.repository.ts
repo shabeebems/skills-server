@@ -59,4 +59,16 @@ export class teachingAssignmentRepository extends BaseRepository<ITeachingAssign
 
     return result;
   };
+
+  // ❌ Remove a subject entry from assignedSubTeachers by subjectId
+  removeSubjectFromAssignment = async (
+    assignmentId: string,
+    organizationId: string,
+    subjectId: string
+  ) => {
+    return this.model.updateOne(
+      { assignmentId, organizationId },
+      { $pull: { assignedSubTeachers: { subjectId } } }
+    );
+  };
 }

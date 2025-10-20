@@ -95,4 +95,7 @@ export class OrganizationSetupController {
   public assignTeacher = (req: any, res: Response): Promise<void> =>
     handleRequest(res, () => this.teachingAssignmentService.assignTeacher(req.params, req.body));
 
+  public removeSubjectFromTeachingAssignment = (req: any, res: Response): Promise<void> =>
+    handleRequest(res, () => this.teachingAssignmentService.removeSubject(req.params, req.body));
+
 }

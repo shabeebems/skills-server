@@ -12,6 +12,7 @@ export class UserRepository extends BaseRepository<IUser> {
 
   findByFilter = (filters: {
     role?: string;
+    departmentId?: string;
     name?: string;
     email?: string;
     mobile?: number;
@@ -19,6 +20,7 @@ export class UserRepository extends BaseRepository<IUser> {
     const query: any = {};
 
     if (filters.role) query.role = filters.role;
+    if (filters.departmentId) query.departmentId = filters.departmentId;
     if (filters.name) query.name = { $regex: filters.name, $options: "i" }; // case-insensitive search
     if (filters.email) query.email = { $regex: filters.email, $options: "i" };
     if (filters.mobile)

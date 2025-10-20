@@ -7,7 +7,7 @@ import { authenticateToken } from "../middlewares/tokenValidation";
 const router = Router();
 const organizationController = new OrganizationController();
 
-router.use(authenticateToken(["master_admin"]));
+router.use(authenticateToken(["master_admin", "org_admin"]));
 
 router.post("/", validate(organizationSchema), (req, res) =>
   organizationController.createOrganization(req, res)

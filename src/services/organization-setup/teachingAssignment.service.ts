@@ -46,4 +46,21 @@ export class TeachingAssignmentService {
       message: Messages.TEACHING_ASSIGNMENT_UPDATED_SUCCESS,
     };
   };
+
+  public removeSubject = async (
+    params: { assignmentId: string; subjectId: string },
+    body: { organizationId: string }
+  ): Promise<ServiceResponse> => {
+    const { assignmentId, subjectId } = params;
+    const { organizationId } = body;
+    await this.teachingAssignmentRepository.removeSubjectFromAssignment(
+      assignmentId,
+      organizationId,
+      subjectId
+    );
+    return {
+      success: true,
+      message: Messages.TEACHING_ASSIGNMENT_UPDATED_SUCCESS,
+    };
+  };
 }

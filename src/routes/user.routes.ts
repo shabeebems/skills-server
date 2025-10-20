@@ -6,7 +6,7 @@ const userRouter: Router = Router();
 
 const userController = new UserController();
 
-userRouter.use(authenticateToken(["master_admin"]));
+userRouter.use(authenticateToken(["master_admin", "org_admin"]));
 
 userRouter.post('/', userController.createUser);
 userRouter.get('/', userController.findUsersByFilter);

@@ -87,3 +87,10 @@ export const assignTeacherSchema = z.object({
 });
 
 export type AssignTeacherInput = z.infer<typeof assignTeacherSchema>;
+
+// Remove Subject from Teaching Assignment schema
+export const removeSubjectSchema = z.object({
+  organizationId: z.string().min(24, "Organization ID must be a valid ObjectId"),
+});
+
+export type RemoveSubjectInput = z.infer<typeof removeSubjectSchema>;

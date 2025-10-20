@@ -1,7 +1,7 @@
 import express from "express";
 import { OrganizationSetupController } from "../controller/organization-setup.controller";
 import { validate } from "../middlewares/zodValidate";
-import { classSchema, departmentSchema, sectionSchema, subjectSchema, assignmentSchema, teachingAssignmentSchema, assignTeacherSchema } from "../schemas/organization-setup.schema";
+import { classSchema, departmentSchema, sectionSchema, subjectSchema, assignmentSchema, teachingAssignmentSchema, assignTeacherSchema, removeSubjectSchema } from "../schemas/organization-setup.schema";
 import { authenticateToken } from "../middlewares/tokenValidation";
 
 const router = express.Router();
@@ -44,5 +44,6 @@ router.delete("/assignments/:id", controller.deleteAssignment);
 router.post("/teachingAssignments", validate(teachingAssignmentSchema), controller.createTeachingAssignment);
 router.get("/teachingAssignments/:organizationId", controller.getTeachingAssignments);
 router.patch("/teachingAssignments/:assignmentId/teachers/:subjectId", validate(assignTeacherSchema), controller.assignTeacher);
+router.patch("/teachingAssignments/:assignmentId/subjects/:subjectId", validate(removeSubjectSchema), controller.removeSubjectFromTeachingAssignment);
 
 export default router;
