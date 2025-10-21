@@ -8,5 +8,6 @@ export const formatUsersOutput = (users: IUser[] | null) => {
     role: user.role,
     email: user.email,
     mobile: user.mobile,
+    status: user.status
   }));
 };
