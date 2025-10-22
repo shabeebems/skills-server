@@ -93,6 +93,15 @@ export enum Messages {
   TEACHING_ASSIGNMENT_CREATED_SUCCESS = "Teaching assignment created successfully",
   TEACHING_ASSIGNMENTS_FETCHED_SUCCESS = "Teaching assignments fetched successfully",
   TEACHING_ASSIGNMENT_UPDATED_SUCCESS = "Teaching assignment updated successfully",
+
+  // -------- Topic --------
+  TOPIC_CREATED_SUCCESS = "Topic created successfully",
+  TOPIC_FETCH_SUCCESS = "Topics fetched successfully",
+  TOPIC_FETCH_SINGLE_SUCCESS = "Topic fetched successfully",
+  TOPIC_UPDATED_SUCCESS = "Topic updated successfully",
+  TOPIC_DELETED_SUCCESS = "Topic deleted successfully",
+  TOPIC_NOT_FOUND = "Topic not found",
+  TOPIC_ALREADY_EXISTS = "Topic with this name already exists for the subject",
 }
 
 export enum LogMessages {

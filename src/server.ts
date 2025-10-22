@@ -10,6 +10,7 @@ import userRoutes from "./routes/user.routes";
 import systemManagerRoutes from "./routes/systemSetting.routes";
 import organizationSetupRoutes from "./routes/organization-setup.routes";
 import meRoutes from "./routes/me.routes";
+import topicRoutes from "./routes/topic.routes";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/locations", locationRoutes);
 app.use("/api/system-manager", systemManagerRoutes);
 app.use("/api/me", meRoutes);
+app.use("/api/topics", topicRoutes);
 
 const PORT = process.env.PORT || 5000;
 
