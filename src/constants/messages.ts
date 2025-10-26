@@ -102,6 +102,10 @@ export enum Messages {
   TOPIC_DELETED_SUCCESS = "Topic deleted successfully",
   TOPIC_NOT_FOUND = "Topic not found",
   TOPIC_ALREADY_EXISTS = "Topic with this name already exists for the subject",
+
+  // -------- Job --------
+  JOB_CREATED_SUCCESS = "Job created successfully",
+  JOB_FETCH_SUCCESS = "Jobs fetched successfully",
 }
 
 export enum LogMessages {

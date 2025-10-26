@@ -5,6 +5,8 @@ export interface ITopic extends Document {
   description?: string;
   subjectId: Schema.Types.ObjectId;
   difficultyLevel: "Easy" | "Medium" | "Hard";
+  organizationId: Schema.Types.ObjectId;
+  departmentId: Schema.Types.ObjectId; // ✅ Added field
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +19,16 @@ const TopicSchema: Schema<ITopic> = new Schema(
     difficultyLevel: {
       type: String,
       enum: ["Easy", "Medium", "Hard"],
+      required: true,
+    },
+    organizationId: {
+      type: Schema.Types.ObjectId,
+      ref: "Organization",
+      required: true,
+    },
+    departmentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Department", // ✅ Referencing Department model
       required: true,
     },
   },

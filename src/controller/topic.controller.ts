@@ -7,4 +7,10 @@ export class TopicController {
 
   public createTopic = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.topicService.createTopic(req.body));
+
+  public getTopicsByOrganization = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.topicService.getTopicsByOrganization(req.params.organizationId));
+
+  public deleteTopic = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.topicService.deleteTopic(req.params.topicId));
 }

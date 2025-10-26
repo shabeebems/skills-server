@@ -11,5 +11,7 @@ const topicController = new TopicController();
 topicRouter.use(authenticateToken(["master_admin", "org_admin"]));
 
 topicRouter.post('/', validate(createTopicSchema), topicController.createTopic);
+topicRouter.get('/:organizationId', topicController.getTopicsByOrganization);
+topicRouter.delete('/:topicId', topicController.deleteTopic);
 
 export default topicRouter;
