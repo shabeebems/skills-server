@@ -11,6 +11,9 @@ export class TopicController {
   public getTopicsByOrganization = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.topicService.getTopicsByOrganization(req.params.organizationId));
 
+  public getTopicsByJob = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.topicService.getTopicsByJob(req.params.jobId));
+
   public deleteTopic = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.topicService.deleteTopic(req.params.topicId));
 }

@@ -8,9 +8,16 @@ export class TopicService {
   private topicRepository = new TopicRepository();
 
   public async createTopic(data: ITopic): Promise<ServiceResponse> {
-    // Check if topic with same name already exists for this subject
-    const existingTopic = await this.topicRepository.findByNameAndSubjectId(data.name, String(data.subjectId));
+    let existingTopic: ITopic | null = null;
+
+    if (data.subjectId) {
+      existingTopic = await this.topicRepository.findByNameAndSubjectId(data.name, String(data.subjectId));
+    }
     
+    if (data.jobId) {
+      existingTopic = await this.topicRepository.findByNameAndJobId(data.name, String(data.jobId));
+    }
+
     if (existingTopic) {
       return {
         success: false,
@@ -29,6 +36,15 @@ export class TopicService {
 
   public async getTopicsByOrganization(organizationId: string): Promise<ServiceResponse> {
     const topics = await this.topicRepository.findByOrganizationId(organizationId);
+    return {
+      success: true,
+      message: Messages.TOPIC_FETCH_SUCCESS,
+      data: formatTopicsOutput(topics),
+    };
+  }
+
+  public async getTopicsByJob(jobId: string): Promise<ServiceResponse> {
+    const topics = await this.topicRepository.findByJobId(jobId);
     return {
       success: true,
       message: Messages.TOPIC_FETCH_SUCCESS,
