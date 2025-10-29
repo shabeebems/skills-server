@@ -3,8 +3,13 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IJob extends Document {
   name: string;
   description?: string;
-  subjectIds: Schema.Types.ObjectId[];
-  organizationId: Schema.Types.ObjectId; // Added field
+  companyName: string;
+  departmentId: Schema.Types.ObjectId;
+  role: string;
+  place: string;
+  salaryRange?: string;
+  requirements?: string[];
+  organizationId: Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,13 +18,16 @@ const JobSchema: Schema<IJob> = new Schema(
   {
     name: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
-    subjectIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Subject",
-        required: true,
-      },
-    ],
+    companyName: { type: String, required: true, trim: true },
+    departmentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
+    role: { type: String, required: true, trim: true },
+    place: { type: String, required: true, trim: true },
+    salaryRange: { type: String, trim: true },
+    requirements: [{ type: String, trim: true }],
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: "Organization",

@@ -6,4 +6,16 @@ export class JobRepository extends BaseRepository<IJob> {
   constructor() {
     super(JobModel);
   }
+
+  async findByDepartmentAndOrganization(
+    departmentId: string,
+    organizationId: string
+  ): Promise<IJob[]> {
+    return this.model
+      .find({
+        departmentId,
+        organizationId,
+      })
+      .exec();
+  }
 }

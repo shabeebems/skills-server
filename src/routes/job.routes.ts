@@ -11,6 +11,7 @@ const jobController = new JobController();
 jobRouter.use(authenticateToken(["master_admin", "org_admin"]));
 
 jobRouter.post('/', validate(createJobSchema), jobController.createJob);
-jobRouter.get('/:organizationId', jobController.getJobsByOrganization);
+jobRouter.get('/:jobId', jobController.getJobById);
+jobRouter.get('/organization/:organizationId', jobController.getJobsByOrganization);
 
 export default jobRouter;

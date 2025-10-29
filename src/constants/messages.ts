@@ -106,6 +106,7 @@ export enum Messages {
   // -------- Job --------
   JOB_CREATED_SUCCESS = "Job created successfully",
   JOB_FETCH_SUCCESS = "Jobs fetched successfully",
+  JOB_NOT_FOUND = "Job not found",
 }
 
 export enum LogMessages {

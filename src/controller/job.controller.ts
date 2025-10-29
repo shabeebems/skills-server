@@ -9,5 +9,15 @@ export class JobController {
     handleRequest(res, () => this.jobService.createJob(req.body));
 
   public getJobsByOrganization = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.jobService.getJobsByOrganization(req.params.organizationId));
+    handleRequest(
+      res,
+      () =>
+        this.jobService.getJobsByOrganization(
+          req.params.organizationId,
+          req.query?.departmentId as string | undefined
+        )
+    );
+
+  public getJobById = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.jobService.getJobById(req.params.jobId));
 }
