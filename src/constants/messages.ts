@@ -113,6 +113,12 @@ export enum Messages {
   TEST_FETCH_SUCCESS = "Tests fetched successfully",
   TEST_NOT_FOUND = "Test not found",
   TEST_DELETED_SUCCESS = "Test deleted successfully",
+
+  // -------- Recording --------
+  RECORDING_CREATED_SUCCESS = "Recording created successfully",
+  RECORDING_FETCH_SUCCESS = "Recordings fetched successfully",
+  RECORDING_NOT_FOUND = "Recording not found",
+  RECORDING_DELETED_SUCCESS = "Recording deleted successfully",
 }
 
 export enum LogMessages {
