@@ -20,4 +20,14 @@ export class JobController {
 
   public getJobById = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.jobService.getJobById(req.params.jobId));
+
+  public getJobsByDepartment = (req: Request, res: Response): Promise<void> =>
+    handleRequest(
+      res,
+      () =>
+        this.jobService.getJobsByDepartment(
+          req.params.organizationId,
+          req.params.departmentId
+        )
+    );
 }

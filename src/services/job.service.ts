@@ -55,4 +55,19 @@ export class JobService {
       data: job,
     };
   }
+
+  public async getJobsByDepartment(
+    organizationId: string,
+    departmentId: string
+  ): Promise<ServiceResponse> {
+    const jobs = await this.jobRepository.findByDepartmentAndOrganization(
+      departmentId,
+      organizationId
+    );
+    return {
+      success: true,
+      message: Messages.JOB_FETCH_SUCCESS,
+      data: formatJobsOutput(jobs),
+    };
+  }
 }
