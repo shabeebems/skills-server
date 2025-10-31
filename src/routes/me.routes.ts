@@ -5,7 +5,7 @@ const meRouter: Router = Router();
 
 meRouter.get(
   "/",
-  authenticateToken(["org_admin", "master_admin"]),
+  authenticateToken(["org_admin", "master_admin", "student"]),
   (req: any, res: Response) => {
     res.status(200).json({ success: true, data: req.user });
   }
