@@ -7,6 +7,12 @@ import { authenticateToken } from "../middlewares/tokenValidation";
 const router = Router();
 const organizationController = new OrganizationController();
 
+router.get(
+  "/:id",
+  authenticateToken(["master_admin", "org_admin", "student"]),
+  (req, res) => organizationController.getOrganizationById(req, res)
+);
+
 router.use(authenticateToken(["master_admin", "org_admin"]));
 
 router.post("/", validate(organizationSchema), (req, res) =>
@@ -19,10 +25,6 @@ router.get("/", (req, res) =>
 
 router.get("/counts", (req, res) =>
   organizationController.getOrganizationsCount(req, res)
-);
-
-router.get("/:id", (req, res) =>
-  organizationController.getOrganizationById(req, res)
 );
 
 router.put("/:id", validate(organizationSchema.partial()), (req, res) =>
