@@ -52,6 +52,15 @@ export class TopicService {
     };
   }
 
+  public async getTopicsBySubject(subjectId: string): Promise<ServiceResponse> {
+    const topics = await this.topicRepository.findBySubjectId(subjectId);
+    return {
+      success: true,
+      message: Messages.TOPIC_FETCH_SUCCESS,
+      data: formatTopicsOutput(topics),
+    };
+  }
+
   public async deleteTopic(topicId: string): Promise<ServiceResponse> {
     const deletedTopic = await this.topicRepository.delete(topicId);
     

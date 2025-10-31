@@ -25,6 +25,14 @@ export class TopicRepository extends BaseRepository<ITopic> {
       .exec();
   }
 
+  // ✅ Find topics by subjectId and populate only 'name' and '_id'
+  async findBySubjectId(subjectId: string): Promise<ITopic[]> {
+    return await TopicModel.find({ subjectId })
+      .populate("subjectId", "name _id")
+      .populate("departmentId", "name _id")
+      .exec();
+  }
+
   // Find topic by name and subjectId
   async findByNameAndSubjectId(
     name: string,

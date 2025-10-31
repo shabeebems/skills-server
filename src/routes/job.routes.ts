@@ -13,5 +13,6 @@ jobRouter.use(authenticateToken(["master_admin", "org_admin"]));
 jobRouter.post('/', validate(createJobSchema), jobController.createJob);
 jobRouter.get('/:jobId', jobController.getJobById);
 jobRouter.get('/organization/:organizationId', jobController.getJobsByOrganization);
+jobRouter.get('/departments/:organizationId/:departmentId', jobController.getJobsByDepartment);
 
 export default jobRouter;
