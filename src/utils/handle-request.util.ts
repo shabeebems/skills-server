@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { HttpStatus } from "../constants/statusCode";
-import { LogMessages, Messages } from "../constants/messages";
+import { LogMessages } from "../constants/messages";
 
 type HandlerFunction<T> = () => Promise<{
   success: boolean;

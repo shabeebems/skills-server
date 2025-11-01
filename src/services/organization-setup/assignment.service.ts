@@ -56,13 +56,14 @@ export class AssignmentService {
     };
   }
 
-  public async getAllAssignments(
+  public async getAssignmentsByOrgDeptAndClass(
     organizationId: string,
-    query: object
+    departmentId: string,
+    classId: string
   ): Promise<ServiceResponse> {
     const data = await this.assignmentRepository.findWithFilter(
       organizationId,
-      query
+      { departmentId, classId }
     );
     return {
       success: true,
