@@ -23,16 +23,8 @@ router.get("/", (req, res) =>
   organizationController.getOrganizations(req, res)
 );
 
-router.get("/counts", (req, res) =>
-  organizationController.getOrganizationsCount(req, res)
-);
-
 router.put("/:id", validate(organizationSchema.partial()), (req, res) =>
   organizationController.updateOrganization(req, res)
-);
-
-router.delete("/:id", (req, res) =>
-  organizationController.deleteOrganization(req, res)
 );
 
 router.patch("/:id/status", (req, res) =>

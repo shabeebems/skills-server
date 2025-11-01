@@ -48,18 +48,10 @@ export class OrganizationService {
     if (filters.state) query.state = { $regex: filters.state, $options: "i" };
     if (filters.district)
       query.district = { $regex: filters.district, $options: "i" };
-
-    if (filters.status) {
-      if (filters.status === "not-pending") {
-        query.status = { $ne: "pending" };
-      } else {
-        query.status = filters.status;
-      }
-    }
-
-    if (filters.isSetupCompleted !== undefined) {
+    if (filters.status) 
+      query.status = filters.status;
+    if (filters.isSetupCompleted !== undefined)
       query.isSetupCompleted = filters.isSetupCompleted;
-    }
 
     // If pagination params exist
     if (filters.page || filters.limit) {
@@ -106,25 +98,6 @@ export class OrganizationService {
     }
   }
 
-  public async getOrganizationsCount(filters: any): Promise<ServiceResponse> {
-    const query: any = {};
-
-    if (filters.status) {
-      if (filters.status === "pending") {
-        query.status = "pending";
-      } else if (filters.status === "not-pending") {
-        query.status = { $ne: "pending" };
-      }
-    }
-
-    const count = await this.organizationRepository.countAll(query);
-    return {
-      success: true,
-      message: Messages.ORGANIZATION_FETCH_SUCCESS,
-      data: { count },
-    };
-  }
-
   public async getOrganizationById(id: string): Promise<ServiceResponse> {
     const org = await this.organizationRepository.findById(id);
     if (!org) {
@@ -141,6 +114,26 @@ export class OrganizationService {
     id: string,
     data: Partial<IOrganization>
   ): Promise<ServiceResponse> {
+    // Check if organization exists
+    const existingOrg = await this.organizationRepository.findById(id);
+    if (!existingOrg) {
+      return { success: false, message: Messages.ORGANIZATION_NOT_FOUND };
+    }
+
+    // Check if email already exists for a different organization
+    if (data.adminEmail && data.adminEmail !== existingOrg.adminEmail) {
+      if (await this.organizationRepository.existsByEmailExcludingId(data.adminEmail, id)) {
+        return { success: false, message: Messages.ADMIN_EMAIL_ALREADY_EXISTS };
+      }
+    }
+
+    // Check if mobile already exists for a different organization
+    if (data.mobileNumber && data.mobileNumber !== existingOrg.mobileNumber) {
+      if (await this.organizationRepository.existsByMobileExcludingId(data.mobileNumber, id)) {
+        return { success: false, message: Messages.MOBILE_NUMBER_ALREADY_EXISTS };
+      }
+    }
+
     const updated = await this.organizationRepository.update(id, data);
     if (!updated) {
       return { success: false, message: Messages.ORGANIZATION_NOT_FOUND };
@@ -149,18 +142,6 @@ export class OrganizationService {
       success: true,
       message: Messages.ORGANIZATION_UPDATED_SUCCESS,
       data: updated,
-    };
-  }
-
-  public async deleteOrganization(id: string): Promise<ServiceResponse> {
-    const deleted = await this.organizationRepository.delete(id);
-    if (!deleted) {
-      return { success: false, message: Messages.ORGANIZATION_NOT_FOUND };
-    }
-    return {
-      success: true,
-      message: Messages.ORGANIZATION_DELETED_SUCCESS,
-      data: deleted,
     };
   }
 
