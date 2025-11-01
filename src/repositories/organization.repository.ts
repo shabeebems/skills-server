@@ -16,6 +16,22 @@ export class OrganizationRepository extends BaseRepository<IOrganization> {
     return count > 0;
   }
 
+  public async existsByEmailExcludingId(adminEmail: string, excludeId: string): Promise<boolean> {
+    const count = await this.model.countDocuments({ 
+      adminEmail,
+      _id: { $ne: excludeId }
+    }).exec();
+    return count > 0;
+  }
+
+  public async existsByMobileExcludingId(mobileNumber: string, excludeId: string): Promise<boolean> {
+    const count = await this.model.countDocuments({ 
+      mobileNumber,
+      _id: { $ne: excludeId }
+    }).exec();
+    return count > 0;
+  }
+
   public async findAllByFilter(query: any): Promise<IOrganization[]> {
     return this.model.find(query).sort({ createdAt: -1 }).exec();
   }
@@ -37,8 +53,4 @@ export class OrganizationRepository extends BaseRepository<IOrganization> {
     return this.model.countDocuments(query).exec();
   }
 
-  // ✅ Count organizations (with optional filters)
-  public async countAll(query: any = {}): Promise<number> {
-    return this.model.countDocuments(query).exec();
-  }
 }

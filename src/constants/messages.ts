@@ -42,7 +42,6 @@ export enum Messages {
   ORGANIZATION_FETCH_SUCCESS = "Organizations fetched successfully.",
   ORGANIZATION_FETCH_SINGLE_SUCCESS = "Organization fetched successfully.",
   ORGANIZATION_UPDATED_SUCCESS = "Organization updated successfully.",
-  ORGANIZATION_DELETED_SUCCESS = "Organization deleted successfully.",
   ORGANIZATION_NOT_FOUND = "Organization not found.",
   ORGANIZATION_STATUS_UPDATED = "Organization status updated successfully.",
   ADMIN_EMAIL_ALREADY_EXISTS = "Admin email already exists.",

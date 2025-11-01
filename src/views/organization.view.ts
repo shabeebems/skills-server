@@ -8,8 +8,6 @@ export const formatOrganizationsOutput = (
     _id: org._id,
     name: org.name,
     status: org.status,
-    mobileNumber: org.mobileNumber,
-    createdAt: org.createdAt,
     district: org.district,
     state: org.state,
     country: org.country,

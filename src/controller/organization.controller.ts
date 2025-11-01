@@ -15,9 +15,6 @@ export class OrganizationController {
       this.organizationService.getOrganizations(req.query)
     );
 
-  public getOrganizationsCount = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.organizationService.getOrganizationsCount(req.query));
-
   public getOrganizationById = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () =>
       this.organizationService.getOrganizationById(req.params.id)
@@ -26,11 +23,6 @@ export class OrganizationController {
   public updateOrganization = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () =>
       this.organizationService.updateOrganization(req.params.id, req.body)
-    );
-
-  public deleteOrganization = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () =>
-      this.organizationService.deleteOrganization(req.params.id)
     );
 
   public changeStatus = (req: Request, res: Response): Promise<void> =>
