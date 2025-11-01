@@ -47,11 +47,6 @@ export const formatClassSectionView = (records: any[] | null) => {
   if (!records) return [];
   return records.map((record) => ({
     _id: record._id,
-    departmentId: record.departmentId?._id,
-    department: record.departmentId?.name,
-    classId: record.classId?._id,
-    class: record.classId?.name,
-    sectionId: record.sectionId?._id,
     section: record.sectionId?.name,
   }));
 };

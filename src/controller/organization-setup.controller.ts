@@ -80,8 +80,12 @@ export class OrganizationSetupController {
   public createAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.createAssignment(req.body));
 
-  public getAssignments = (req: Request, res: Response): Promise<void> =>
-  handleRequest(res, () => this.assignmentService.getAllAssignments(req.params.organizationId, req.query));
+  public getAssignmentsByOrgDeptAndClass = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.assignmentService.getAssignmentsByOrgDeptAndClass(
+      req.params.organizationId,
+      req.params.departmentId,
+      req.params.classId
+    ));
 
   public deleteAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.deleteAssignment(req.params.id));

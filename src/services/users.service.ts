@@ -8,9 +8,11 @@ export class UserService {
   private userRepository = new UserRepository();
 
   public async createUser(data: IUser): Promise<ServiceResponse> {
-    data.password =
+    const plainPassword =
       (data.name?.slice(0, 4).toUpperCase() || "USER") +
       (data.mobile?.toString().slice(0, 4) || "0000");
+
+    data.password = plainPassword
 
     const newUser = await this.userRepository.create(data);
     return {

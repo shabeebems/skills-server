@@ -29,8 +29,6 @@ export class AssignmentRepository extends BaseRepository<IAssignment> {
 
     return this.model
       .find(query)
-      .populate("departmentId", "name")
-      .populate("classId", "name")
       .populate("sectionId", "name")
       .exec();
   }

@@ -38,7 +38,7 @@ router.get("/subjects/:organizationId/:departmentId", controller.getSubjectsByDe
 
 // -------- Assignments --------
 router.post("/assignments", validate(assignmentSchema), controller.createAssignment);
-router.get("/assignments/:organizationId", controller.getAssignments);
+router.get("/assignments/:organizationId/:departmentId/:classId", controller.getAssignmentsByOrgDeptAndClass);
 router.delete("/assignments/:id", controller.deleteAssignment);
 
 router.post("/teachingAssignments", validate(teachingAssignmentSchema), controller.createTeachingAssignment);
