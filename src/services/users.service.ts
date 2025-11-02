@@ -8,6 +8,43 @@ export class UserService {
   private userRepository = new UserRepository();
 
   public async createUser(data: IUser): Promise<ServiceResponse> {
+    const existingUserByEmail = await this.userRepository.findByEmail(data.email);
+    if (existingUserByEmail) {
+      return {
+        success: false,
+        message: Messages.EMAIL_ALREADY_EXISTS,
+        data: null,
+      };
+    }
+
+    if (data.mobile) {
+      const existingUserByMobile = await this.userRepository.findOne({
+        mobile: data.mobile,
+      });
+      if (existingUserByMobile) {
+        return {
+          success: false,
+          message: Messages.MOBILE_NUMBER_ALREADY_EXISTS,
+          data: null,
+        };
+      }
+    }
+
+    if (data.role === "hod" && data.organizationId && data.departmentId) {
+      const existingHOD = await this.userRepository.findOne({
+        role: "hod",
+        organizationId: data.organizationId,
+        departmentId: data.departmentId,
+      });
+      if (existingHOD) {
+        return {
+          success: false,
+          message: Messages.HOD_ALREADY_EXISTS,
+          data: null,
+        };
+      }
+    }
+
     const plainPassword =
       (data.name?.slice(0, 4).toUpperCase() || "USER") +
       (data.mobile?.toString().slice(0, 4) || "0000");
