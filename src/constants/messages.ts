@@ -45,7 +45,9 @@ export enum Messages {
   ORGANIZATION_NOT_FOUND = "Organization not found.",
   ORGANIZATION_STATUS_UPDATED = "Organization status updated successfully.",
   ADMIN_EMAIL_ALREADY_EXISTS = "Admin email already exists.",
+  EMAIL_ALREADY_EXISTS = "Email already exists.",
   MOBILE_NUMBER_ALREADY_EXISTS = "Mobile number already exists.",
+  HOD_ALREADY_EXISTS = "A Head of Department already exists for this department.",
 
   // -------- Department --------
   DEPARTMENT_CREATED_SUCCESS = "Department created successfully",
