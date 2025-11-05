@@ -112,4 +112,13 @@ export class AssignmentRepository extends BaseRepository<IAssignment> {
 
     return result;
   }
+
+  async findByIdWithPopulate(id: string): Promise<IAssignment | null> {
+    return this.model
+      .findById(id)
+      .populate("classId", "name")
+      .populate("sectionId", "name")
+      .populate("departmentId", "name")
+      .exec();
+  }
 }

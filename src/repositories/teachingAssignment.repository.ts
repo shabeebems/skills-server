@@ -23,7 +23,21 @@ export class teachingAssignmentRepository extends BaseRepository<ITeachingAssign
       })
       .populate({
         path: "assignedSubTeachers.subjectId",
+        select: "name code",
+      })
+      .populate({
+        path: "assignedSubTeachers.teacherId",
         select: "name",
+      });
+  };
+
+  // 🧩 Fetch teaching assignment by organizationId and assignmentId with full details
+  findByOrgAndAssignment = (organizationId: string, assignmentId: string) => {
+    return this.model
+      .findOne({ organizationId, assignmentId })
+      .populate({
+        path: "assignedSubTeachers.subjectId",
+        select: "name code",
       })
       .populate({
         path: "assignedSubTeachers.teacherId",

@@ -28,14 +28,8 @@ export const authenticateToken = (allowedRoles: string[]) => {
           clearRefreshToken(res);
           return res.status(403).json({ success: false, message: "UNAUTHORIZED_ACCESS" });
         }
-
-        req.user = {
-          _id: userDetails._id.toString(),
-          email: userDetails.email,
-          role: userDetails.role,
-          organizationId: userDetails.organizationId || null,
-        };
-
+        
+        req.user = userDetails;
         next();
       };
 

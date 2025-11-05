@@ -87,6 +87,9 @@ export class OrganizationSetupController {
       req.params.classId
     ));
 
+  public getAssignmentById = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.assignmentService.getAssignmentById(req.params.id));
+
   public deleteAssignment = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.assignmentService.deleteAssignment(req.params.id));
 
@@ -95,6 +98,9 @@ export class OrganizationSetupController {
 
   public getTeachingAssignments = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.teachingAssignmentService.getTeachingAssignments(req.params.organizationId));
+
+  public getTeachingAssignmentByOrgAndAssignment = (req: Request, res: Response): Promise<void> =>
+    handleRequest(res, () => this.teachingAssignmentService.getTeachingAssignmentByOrgAndAssignment(req.params.organizationId, req.params.assignmentId));
 
   public assignTeacher = (req: any, res: Response): Promise<void> =>
     handleRequest(res, () => this.teachingAssignmentService.assignTeacher(req.params, req.body));
