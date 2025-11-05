@@ -8,17 +8,19 @@ const recordingRouter: Router = Router();
 
 const recordingController = new RecordingController();
 
+// Student accessible routes - placed before global middleware
+recordingRouter.get(
+  "/subject/:subjectId/topic/:topicId",
+  authenticateToken(["master_admin", "org_admin", "student"]),
+  recordingController.getRecordingsBySubjectIdAndTopicId
+);
+
 recordingRouter.use(authenticateToken(["master_admin", "org_admin"]));
 
 recordingRouter.post(
   "/",
   validate(createRecordingSchema),
   recordingController.createRecording
-);
-
-recordingRouter.get(
-  "/subject/:subjectId/topic/:topicId",
-  recordingController.getRecordingsBySubjectIdAndTopicId
 );
 
 recordingRouter.delete(

@@ -3,7 +3,7 @@ import { ServiceResponse } from "../types";
 import { AssignmentRepository } from "../../repositories/assignment.repository";
 import { AssignmentInput } from "../../schemas/organization-setup.schema";
 import { Types } from "mongoose";
-import { formatClassSectionView } from "../../views/organization-setup.view";
+import { formatClassSectionView, formatAssignmentOutput } from "../../views/organization-setup.view";
 import { OrganizationRepository } from "../../repositories/organization.repository";
 
 export class AssignmentService {
@@ -69,6 +69,22 @@ export class AssignmentService {
       success: true,
       message: Messages.ASSIGNMENT_FETCH_SUCCESS,
       data: formatClassSectionView(data),
+    };
+  }
+
+  public async getAssignmentById(id: string): Promise<ServiceResponse> {
+    const assignment = await this.assignmentRepository.findByIdWithPopulate(id);
+    if (!assignment) {
+      return {
+        success: false,
+        message: Messages.ASSIGNMENT_NOT_FOUND,
+        data: null,
+      };
+    }
+    return {
+      success: true,
+      message: Messages.ASSIGNMENT_FETCH_SUCCESS,
+      data: formatAssignmentOutput(assignment),
     };
   }
 

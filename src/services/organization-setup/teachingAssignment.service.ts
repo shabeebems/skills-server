@@ -29,6 +29,21 @@ export class TeachingAssignmentService {
     };
   };
 
+  public getTeachingAssignmentByOrgAndAssignment = async (
+    organizationId: string,
+    assignmentId: string
+  ): Promise<ServiceResponse> => {
+    const assignment = await this.teachingAssignmentRepository.findByOrgAndAssignment(
+      organizationId,
+      assignmentId
+    );
+    return {
+      success: true,
+      message: Messages.TEACHING_ASSIGNMENTS_FETCHED_SUCCESS,
+      data: assignment,
+    };
+  };
+
   public assignTeacher = async (
     params: { assignmentId: string; subjectId: string },
     body: { organizationId: string; teacherId: string }

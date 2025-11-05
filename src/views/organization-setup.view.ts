@@ -50,3 +50,13 @@ export const formatClassSectionView = (records: any[] | null) => {
     section: record.sectionId?.name,
   }));
 };
+
+export const formatAssignmentOutput = (assignment: any | null) => {
+  if (!assignment) return null;
+  return {
+    _id: assignment._id,
+    section: assignment.sectionId?.name || null,
+    class: assignment.classId?.name || null,
+    department: assignment.departmentId?.name || null,
+  };
+};

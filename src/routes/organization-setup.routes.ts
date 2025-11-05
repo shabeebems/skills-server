@@ -7,6 +7,10 @@ import { authenticateToken } from "../middlewares/tokenValidation";
 const router = express.Router();
 const controller = new OrganizationSetupController();
 
+// Student accessible routes - placed before global middleware
+router.get("/assignments/:id", authenticateToken(["master_admin", "org_admin", "student"]), controller.getAssignmentById);
+router.get("/teachingAssignments/:organizationId/:assignmentId", authenticateToken(["master_admin", "org_admin", "student"]), controller.getTeachingAssignmentByOrgAndAssignment);
+
 router.use(authenticateToken(["master_admin", "org_admin"]));
 
 // -------- Departments --------
