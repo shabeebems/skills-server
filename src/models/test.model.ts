@@ -8,6 +8,7 @@ export interface ITest extends Document {
   jobId?: Schema.Types.ObjectId;
   difficultyLevel: "Easy" | "Medium" | "Hard";
   organizationId: Schema.Types.ObjectId;
+  questionCount?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -40,6 +41,10 @@ const TestSchema: Schema<ITest> = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Organization",
       required: true,
+    },
+    questionCount: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

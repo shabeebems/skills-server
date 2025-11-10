@@ -23,7 +23,13 @@ export class TestService {
   public async createTest(data: CreateTestPayload): Promise<ServiceResponse> {
     const { questions, ...testData } = data as unknown as CreateTestPayload;
 
-    const newTest = await this.testRepository.create(testData as Partial<ITest>);
+    // Set questionCount from questions array length if not provided
+    const questionCount = (testData as any).questionCount ?? questions.length;
+
+    const newTest = await this.testRepository.create({
+      ...testData,
+      questionCount,
+    } as Partial<ITest>);
 
     for (const q of questions) {
       const createdQuestion = await this.questionService.createQuestion({
@@ -113,6 +119,12 @@ export class TestService {
 
   public async updateTest(testId: string, data: any): Promise<ServiceResponse> {
     const { questions, ...testUpdate } = data || {};
+
+    // Set questionCount from questions array length if not provided
+    const questionCount = testUpdate.questionCount ?? (Array.isArray(questions) ? questions.length : undefined);
+    if (questionCount !== undefined) {
+      testUpdate.questionCount = questionCount;
+    }
 
     const updatedTest = await this.testRepository.update(testId, testUpdate);
     if (!updatedTest) {

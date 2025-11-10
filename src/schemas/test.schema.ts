@@ -21,6 +21,7 @@ export const createTestSchema = z
     jobId: z.string().min(1).trim().optional(),
     difficultyLevel: z.enum(["Easy", "Medium", "Hard"]),
     organizationId: z.string().min(1, "Organization ID is required").trim(),
+    questionCount: z.number().int().min(0).optional(),
     questions: z
       .array(questionInputSchema)
       .min(1, "At least one question is required"),

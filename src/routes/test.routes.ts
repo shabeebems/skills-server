@@ -8,7 +8,7 @@ const testRouter: Router = Router();
 
 const testController = new TestController();
 
-testRouter.use(authenticateToken(["master_admin", "org_admin"]));
+testRouter.use(authenticateToken(["master_admin", "org_admin", "student"]));
 
 testRouter.post("/", validate(createTestSchema), testController.createTest);
 testRouter.get("/subject/:subjectId", testController.getTestsBySubject);
