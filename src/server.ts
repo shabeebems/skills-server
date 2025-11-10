@@ -14,6 +14,7 @@ import topicRoutes from "./routes/topic.routes";
 import jobRoutes from "./routes/job.routes";
 import testRoutes from "./routes/test.routes";
 import recordingRoutes from "./routes/recording.routes";
+import studentTestHistoryRoutes from "./routes/studentTestHistory.routes";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/topics", topicRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/tests", testRoutes);
 app.use("/api/recordings", recordingRoutes);
+app.use("/api/student-test-history", studentTestHistoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 
