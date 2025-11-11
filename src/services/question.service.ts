@@ -10,7 +10,8 @@ export class QuestionService {
   }
 
   public async getQuestionsByTestId(testId: string) {
-    return this.questionRepository.find({ testId } as any);
+    // Ensure topicId is populated to access topic name and _id
+    return this.questionRepository.findByTestIdWithTopic(testId);
   }
 
   public async updateQuestion(questionId: string, data: Partial<IQuestion>) {

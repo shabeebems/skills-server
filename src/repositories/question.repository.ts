@@ -5,6 +5,13 @@ export class QuestionRepository extends BaseRepository<IQuestion> {
   constructor() {
     super(QuestionModel);
   }
+
+  async findByTestIdWithTopic(testId: string) {
+    return this.model
+      .find({ testId } as any)
+      .populate("topicId", "name _id")
+      .exec();
+  }
 }
 
 

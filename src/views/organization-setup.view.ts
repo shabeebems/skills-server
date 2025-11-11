@@ -58,5 +58,6 @@ export const formatAssignmentOutput = (assignment: any | null) => {
     section: assignment.sectionId?.name || null,
     class: assignment.classId?.name || null,
     department: assignment.departmentId?.name || null,
+    departmentId: assignment.departmentId?._id || null,
   };
 };

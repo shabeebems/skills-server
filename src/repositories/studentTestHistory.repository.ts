@@ -48,7 +48,7 @@ export class StudentTestHistoryRepository extends BaseRepository<IStudentTest> {
   }
 
   async findByTopicIdAndStudentId(topicId: string, studentId: string) {
-    // Filter by topicId through Test model
+    // Filter by topicId through Test model where topic belongs to a subject (not a job)
     if (!topicId || !studentId) {
       throw new Error("topicId and studentId are required");
     }
@@ -60,7 +60,63 @@ export class StudentTestHistoryRepository extends BaseRepository<IStudentTest> {
       .find({ studentId: studentObjectId } as any)
       .populate({
         path: "testId",
-        match: { topicId: topicObjectId },
+        match: { 
+          topicId: topicObjectId,
+          subjectId: { $exists: true, $ne: null },
+          $or: [
+            { jobId: { $exists: false } },
+            { jobId: null }
+          ]
+        },
+        select: "name difficultyLevel questionCount",
+      })
+      .exec()
+      .then((results) => results.filter((item: any) => item.testId !== null));
+  }
+
+  async findByJobIdAndStudentId(jobId: string, studentId: string) {
+    // Only return job-level tests (tests without topicId)
+    if (!jobId || !studentId) {
+      throw new Error("jobId and studentId are required");
+    }
+    
+    const jobObjectId = new Types.ObjectId(jobId);
+    const studentObjectId = new Types.ObjectId(studentId);
+    
+    return this.model
+      .find({ studentId: studentObjectId } as any)
+      .populate({
+        path: "testId",
+        match: { 
+          jobId: jobObjectId,
+          $or: [
+            { topicId: { $exists: false } },
+            { topicId: null }
+          ]
+        },
+        select: "name difficultyLevel questionCount",
+      })
+      .exec()
+      .then((results) => results.filter((item: any) => item.testId !== null));
+  }
+
+  async findByJobTopicIdAndStudentId(topicId: string, studentId: string) {
+    // Filter by topicId through Test model where topic belongs to a job
+    if (!topicId || !studentId) {
+      throw new Error("topicId and studentId are required");
+    }
+    
+    const topicObjectId = new Types.ObjectId(topicId);
+    const studentObjectId = new Types.ObjectId(studentId);
+    
+    return this.model
+      .find({ studentId: studentObjectId } as any)
+      .populate({
+        path: "testId",
+        match: { 
+          topicId: topicObjectId,
+          jobId: { $exists: true, $ne: null }
+        },
         select: "name difficultyLevel questionCount",
       })
       .exec()

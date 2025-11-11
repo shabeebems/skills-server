@@ -21,6 +21,15 @@ export class RecordingController {
         )
     );
 
+  public getRecordingsByTopicIds = (
+    req: Request,
+    res: Response
+  ): Promise<void> =>
+    handleRequest(
+      res,
+      () => this.recordingService.getRecordingsByTopicIds(req.query.topicIds as string[] | string | undefined)
+    );
+
   public deleteRecording = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.recordingService.deleteRecording(req.params.recordingId));
 }
