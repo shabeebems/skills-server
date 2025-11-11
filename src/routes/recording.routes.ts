@@ -15,6 +15,12 @@ recordingRouter.get(
   recordingController.getRecordingsBySubjectIdAndTopicId
 );
 
+recordingRouter.get(
+  "/topics",
+  authenticateToken(["master_admin", "org_admin", "student"]),
+  recordingController.getRecordingsByTopicIds
+);
+
 recordingRouter.use(authenticateToken(["master_admin", "org_admin"]));
 
 recordingRouter.post(

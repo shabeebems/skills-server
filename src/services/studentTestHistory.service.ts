@@ -12,19 +12,45 @@ export class StudentTestHistoryService {
   private testService = new TestService();
 
   private async ensureStudentTestHistoryRecords(
-    subjectId: string,
+    subjectId: string | undefined,
     studentId: string,
     organizationId: string,
-    topicId?: string
+    topicId?: string,
+    jobId?: string
   ): Promise<void> {
     try {
-      // Get all tests for the subject or topic
+      // Get all tests for the subject, topic, job, or job topic
       let testsResponse: ServiceResponse;
-      if (topicId) {
+      if (jobId && topicId) {
+        // Job topic-level tests
         testsResponse = await this.testService.getTestsByTopic(topicId);
-      } else {
+        // Filter to only include tests that belong to the job
+        const allTests = (testsResponse.data as any[]) || [];
+        const jobObjectId = new Types.ObjectId(jobId);
+        const tests = allTests.filter((test: any) => 
+          test.jobId && String(test.jobId) === String(jobObjectId)
+        );
+        testsResponse = { ...testsResponse, data: tests };
+      } else if (jobId) {
+        // Job-level tests
+        testsResponse = await this.testService.getTestsByJob(jobId);
+      } else if (topicId) {
+        // Subject topic-level tests
+        testsResponse = await this.testService.getTestsByTopic(topicId);
+        // Filter to only include tests that belong to the subject
+        const allTests = (testsResponse.data as any[]) || [];
+        const subjectObjectId = new Types.ObjectId(subjectId!);
+        const tests = allTests.filter((test: any) => 
+          test.subjectId && String(test.subjectId) === String(subjectObjectId)
+        );
+        testsResponse = { ...testsResponse, data: tests };
+      } else if (subjectId) {
+        // Subject-level tests
         testsResponse = await this.testService.getTestsBySubject(subjectId);
+      } else {
+        return;
       }
+      
       const tests = (testsResponse.data as any[]) || [];
 
       if (tests.length === 0) {
@@ -120,6 +146,53 @@ export class StudentTestHistoryService {
     }
   }
 
+  public async getStudentTestHistoryByJob(
+    jobId: string,
+    studentId: string | undefined,
+    organizationId: string | undefined,
+    topicId?: string
+  ): Promise<ServiceResponse> {
+    try {
+      if (!jobId || !studentId || !organizationId) {
+        return {
+          success: false,
+          message: "jobId, studentId, and organizationId are required",
+          data: null,
+        };
+      }
+
+      // First, ensure all test history records exist
+      await this.ensureStudentTestHistoryRecords(undefined, studentId, organizationId, topicId, jobId);
+
+      // Then fetch the student test history
+      let studentTestHistory;
+      if (topicId) {
+        studentTestHistory = await this.studentTestHistoryRepository.findByJobTopicIdAndStudentId(
+          topicId,
+          studentId
+        );
+      } else {
+        studentTestHistory = await this.studentTestHistoryRepository.findByJobIdAndStudentId(
+          jobId,
+          studentId
+        );
+      }
+      
+      return {
+        success: true,
+        message: Messages.TEST_FETCH_SUCCESS || "Student test history fetched successfully",
+        data: formatStudentTestHistoryResponse(studentTestHistory),
+      };
+    } catch (error) {
+      console.error("Error fetching student test history by job:", error);
+      return {
+        success: false,
+        message: "Failed to fetch student test history",
+        data: null,
+      };
+    }
+  }
+
   public async completeTest(
     studentTestHistoryId: string,
     answers: Array<{ questionId: string; selectedAnswer: string; isCorrect: boolean }>,
@@ -200,7 +273,6 @@ export class StudentTestHistoryService {
 
       const testData = testResponse.data as any;
       const questions = (testData?.questions || []) as any[];
-
       // Get student answers
       const studentAnswers = await this.studentAnswerHistoryRepository.findByStudentTestId(studentTestHistoryId);
       const answersByQuestionId = new Map<string, any>();
@@ -213,7 +285,6 @@ export class StudentTestHistoryService {
         const studentAnswer = answersByQuestionId.get(String(q._id));
         const correctAnswer = q.answer?.correctAnswer || '';
         const correctAnswerIndex = q.options?.findIndex((opt: string) => opt === correctAnswer) ?? -1;
-        
         return {
           _id: q._id,
           id: String(q._id),
@@ -222,7 +293,8 @@ export class StudentTestHistoryService {
           options: q.options || [],
           correctAnswer: correctAnswerIndex >= 0 ? correctAnswerIndex : 0,
           correctAnswerText: correctAnswer,
-          topic: q.topicId?.name || 'General',
+          topic: (q as any).topicId?.name || 'General',
+          topicId: (q as any).topicId?._id ? String((q as any).topicId._id) : (q.topicId ? String(q.topicId) : null),
           studentAnswer: studentAnswer ? {
             selectedAnswer: studentAnswer.selectedAnswer,
             isCorrect: studentAnswer.isCorrect,

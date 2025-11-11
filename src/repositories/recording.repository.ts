@@ -20,5 +20,16 @@ export class RecordingRepository extends BaseRepository<IRecording> {
       .sort({ createdAt: -1 })
       .exec();
   }
+
+  async findByTopicIds(topicIds: string[]): Promise<IRecording[]> {
+    return this.model
+      .find({
+        topicId: { $in: topicIds },
+      })
+      .populate("subId", "name _id")
+      .populate("topicId", "name _id")
+      .sort({ createdAt: -1 })
+      .exec();
+  }
 }
 

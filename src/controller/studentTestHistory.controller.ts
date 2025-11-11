@@ -15,6 +15,16 @@ export class StudentTestHistoryController {
       )
     );
 
+  public getStudentTestHistoryByJob = (req: any, res: Response): Promise<void> =>
+    handleRequest(res, () =>
+      this.studentTestHistoryService.getStudentTestHistoryByJob(
+        req.params.jobId,
+        req.query.studentId,
+        req.query.organizationId,
+        req.query.topicId
+      )
+    );
+
   public completeTest = (req: any, res: Response): Promise<void> =>
     handleRequest(res, () =>
       this.studentTestHistoryService.completeTest(

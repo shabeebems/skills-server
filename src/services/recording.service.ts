@@ -48,6 +48,28 @@ export class RecordingService {
     };
   }
 
+  public async getRecordingsByTopicIds(
+    topicIds: string[] | string | undefined
+  ): Promise<ServiceResponse> {
+    const ids = Array.isArray(topicIds) ? topicIds : topicIds ? [topicIds] : [];
+    
+    if (ids.length === 0) {
+      return {
+        success: true,
+        message: Messages.RECORDING_FETCH_SUCCESS,
+        data: [],
+      };
+    }
+
+    const recordings = await this.recordingRepository.findByTopicIds(ids);
+
+    return {
+      success: true,
+      message: Messages.RECORDING_FETCH_SUCCESS,
+      data: recordings,
+    };
+  }
+
   public async deleteRecording(recordingId: string): Promise<ServiceResponse> {
     const deleted = await this.recordingRepository.delete(recordingId);
     if (!deleted) {

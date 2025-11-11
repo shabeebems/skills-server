@@ -8,7 +8,7 @@ const jobRouter: Router = Router();
 
 const jobController = new JobController();
 
-jobRouter.use(authenticateToken(["master_admin", "org_admin"]));
+jobRouter.use(authenticateToken(["master_admin", "org_admin", "student"]));
 
 jobRouter.post('/', validate(createJobSchema), jobController.createJob);
 jobRouter.get('/:jobId', jobController.getJobById);
