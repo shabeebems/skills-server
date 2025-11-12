@@ -128,6 +128,11 @@ export enum Messages {
   // -------- Reading Module --------
   READING_MODULE_CREATED_SUCCESS = "Reading module created successfully",
   READING_MODULE_FETCH_SUCCESS = "Reading module fetched successfully",
+
+  // -------- Video Script --------
+  VIDEO_SCRIPT_CREATED_SUCCESS = "Video script created successfully",
+  VIDEO_SCRIPT_FETCH_SUCCESS = "Video scripts fetched successfully",
+  VIDEO_SCRIPT_SECTIONS_FETCH_SUCCESS = "Video script sections fetched successfully",
 }
 
 export enum LogMessages {
