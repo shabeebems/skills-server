@@ -120,6 +120,14 @@ export enum Messages {
   RECORDING_FETCH_SUCCESS = "Recordings fetched successfully",
   RECORDING_NOT_FOUND = "Recording not found",
   RECORDING_DELETED_SUCCESS = "Recording deleted successfully",
+
+  // -------- Skill Planner --------
+  SKILL_PLANNER_ADDED_SUCCESS = "Job added to skill planner successfully",
+  SKILL_PLANNER_FETCH_SUCCESS = "Skill planner jobs fetched successfully",
+
+  // -------- Reading Module --------
+  READING_MODULE_CREATED_SUCCESS = "Reading module created successfully",
+  READING_MODULE_FETCH_SUCCESS = "Reading module fetched successfully",
 }
 
 export enum LogMessages {
