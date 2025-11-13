@@ -18,6 +18,8 @@ import studentTestHistoryRoutes from "./routes/studentTestHistory.routes";
 import skillPlannerRoutes from "./routes/skillPlanner.routes";
 import readingModuleRoutes from "./routes/readingModule.routes";
 import videoScriptRoutes from "./routes/videoScript.routes";
+import certificateRoutes from "./routes/certificate.routes";
+import testimonialRoutes from "./routes/testimonial.routes";
 
 dotenv.config();
 
@@ -44,6 +46,8 @@ app.use("/api/student-test-history", studentTestHistoryRoutes);
 app.use("/api/skill-planner", skillPlannerRoutes);
 app.use("/api/reading-modules", readingModuleRoutes);
 app.use("/api/video-scripts", videoScriptRoutes);
+app.use("/api/certificates", certificateRoutes);
+app.use("/api/testimonials", testimonialRoutes);
 
 const PORT = process.env.PORT || 5000;
 

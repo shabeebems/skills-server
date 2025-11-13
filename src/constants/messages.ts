@@ -133,6 +133,14 @@ export enum Messages {
   VIDEO_SCRIPT_CREATED_SUCCESS = "Video script created successfully",
   VIDEO_SCRIPT_FETCH_SUCCESS = "Video scripts fetched successfully",
   VIDEO_SCRIPT_SECTIONS_FETCH_SUCCESS = "Video script sections fetched successfully",
+
+  // -------- Certificate --------
+  CERTIFICATE_CREATED_SUCCESS = "Certificate created successfully",
+  CERTIFICATE_FETCH_SUCCESS = "Certificates fetched successfully",
+
+  // -------- Testimonial --------
+  TESTIMONIAL_CREATED_SUCCESS = "Testimonial created successfully",
+  TESTIMONIAL_FETCH_SUCCESS = "Testimonials fetched successfully",
 }
 
 export enum LogMessages {
