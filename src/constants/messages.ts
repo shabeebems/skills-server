@@ -141,6 +141,14 @@ export enum Messages {
   // -------- Testimonial --------
   TESTIMONIAL_CREATED_SUCCESS = "Testimonial created successfully",
   TESTIMONIAL_FETCH_SUCCESS = "Testimonials fetched successfully",
+
+  // -------- LinkedIn Post --------
+  LINKEDIN_POST_CREATED_SUCCESS = "LinkedIn post created successfully",
+  LINKEDIN_POST_FETCH_SUCCESS = "LinkedIn posts fetched successfully",
+
+  // -------- Student Video --------
+  STUDENT_VIDEO_CREATED_SUCCESS = "Student video created successfully",
+  STUDENT_VIDEO_FETCH_SUCCESS = "Student videos fetched successfully",
 }
 
 export enum LogMessages {
