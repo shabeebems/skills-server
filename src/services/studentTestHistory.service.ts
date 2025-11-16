@@ -320,5 +320,66 @@ export class StudentTestHistoryService {
       };
     }
   }
+
+  public async getTopicAverageScore(
+    jobId: string,
+    topicId: string,
+    studentId: string,
+    organizationId: string
+  ): Promise<ServiceResponse> {
+    try {
+      if (!jobId || !topicId || !studentId || !organizationId) {
+        return {
+          success: false,
+          message: "jobId, topicId, studentId, and organizationId are required",
+          data: null,
+        };
+      }
+
+      // Get all completed test histories for this topic in this job
+      const studentTestHistory = await this.studentTestHistoryRepository.findByJobTopicIdAndStudentId(
+        topicId,
+        studentId
+      );
+
+      // Filter only completed tests with scores
+      const completedTests = (studentTestHistory as any[]).filter(
+        (test: any) => test.status === "Completed" && test.score !== null && test.score !== undefined
+      );
+
+      if (completedTests.length === 0) {
+        return {
+          success: true,
+          message: "No completed tests found for this topic",
+          data: {
+            averageScore: null,
+            totalTests: 0,
+            completedTests: 0,
+          },
+        };
+      }
+
+      // Calculate average score
+      const totalScore = completedTests.reduce((sum: number, test: any) => sum + (test.score || 0), 0);
+      const averageScore = Math.round((totalScore / completedTests.length) * 100) / 100; // Round to 2 decimal places
+
+      return {
+        success: true,
+        message: "Topic average score calculated successfully",
+        data: {
+          averageScore,
+          totalTests: completedTests.length,
+          completedTests: completedTests.length,
+        },
+      };
+    } catch (error) {
+      console.error("Error calculating topic average score:", error);
+      return {
+        success: false,
+        message: "Failed to calculate topic average score",
+        data: null,
+      };
+    }
+  }
 }
 

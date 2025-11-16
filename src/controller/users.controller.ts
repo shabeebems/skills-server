@@ -14,8 +14,10 @@ export class UserController {
   public getAccManagerById = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.userService.getAccManagerById(req.params.id));
 
-  public updateUser = (req: Request, res: Response): Promise<void> =>
-    handleRequest(res, () => this.userService.updateUser(req.params.id, req.body));
+  public updateUser = (req: any, res: Response): Promise<void> => {
+    const userId = req.params.id || req.user?._id?.toString();
+    return handleRequest(res, () => this.userService.updateUser(userId, req.body));
+  };
 
   public deleteUser = (req: Request, res: Response): Promise<void> =>
     handleRequest(res, () => this.userService.deleteUser(req.params.id));
