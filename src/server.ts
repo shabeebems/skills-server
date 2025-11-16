@@ -22,6 +22,7 @@ import certificateRoutes from "./routes/certificate.routes";
 import testimonialRoutes from "./routes/testimonial.routes";
 import linkedInPostRoutes from "./routes/linkedInPost.routes";
 import studentVideoRoutes from "./routes/studentVideo.routes";
+import cvRoutes from "./routes/cv.routes";
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use("/api/certificates", certificateRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/linkedin-posts", linkedInPostRoutes);
 app.use("/api/student-videos", studentVideoRoutes);
+app.use("/api/cv", cvRoutes);
 
 const PORT = process.env.PORT || 5000;
 

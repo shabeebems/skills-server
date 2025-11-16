@@ -34,5 +34,12 @@ studentTestHistoryRouter.post(
   studentTestHistoryController.completeTest
 );
 
+// Get average test score for a topic in a job
+// GET /topic-average/:jobId/:topicId?studentId=xxx&organizationId=xxx
+studentTestHistoryRouter.get(
+  "/topic-average/:jobId/:topicId",
+  studentTestHistoryController.getTopicAverageScore
+);
+
 export default studentTestHistoryRouter;
 
