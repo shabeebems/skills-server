@@ -133,6 +133,13 @@ export enum Messages {
   VIDEO_SCRIPT_CREATED_SUCCESS = "Video script created successfully",
   VIDEO_SCRIPT_FETCH_SUCCESS = "Video scripts fetched successfully",
   VIDEO_SCRIPT_SECTIONS_FETCH_SUCCESS = "Video script sections fetched successfully",
+
+  // -------- Contact --------
+  CONTACT_CREATED_SUCCESS = "Contact created successfully",
+  CONTACT_FETCH_SUCCESS = "Contacts fetched successfully",
+  CONTACT_NOT_FOUND = "Contact not found",
+  CONTACT_DELETED_SUCCESS = "Contact deleted successfully",
+  CONTACT_UPDATED_SUCCESS = "Contact updated successfully",
 }
 
 export enum LogMessages {
