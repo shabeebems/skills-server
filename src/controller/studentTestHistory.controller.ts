@@ -40,5 +40,15 @@ export class StudentTestHistoryController {
     handleRequest(res, () =>
       this.studentTestHistoryService.getStudentTestHistoryById(req.params.studentTestHistoryId)
     );
+
+  public getTopicAverageScore = (req: any, res: Response): Promise<void> =>
+    handleRequest(res, () =>
+      this.studentTestHistoryService.getTopicAverageScore(
+        req.params.jobId,
+        req.params.topicId,
+        req.query.studentId,
+        req.query.organizationId
+      )
+    );
 }
 

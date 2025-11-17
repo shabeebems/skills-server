@@ -140,6 +140,41 @@ export enum Messages {
   CONTACT_NOT_FOUND = "Contact not found",
   CONTACT_DELETED_SUCCESS = "Contact deleted successfully",
   CONTACT_UPDATED_SUCCESS = "Contact updated successfully",
+  // -------- Certificate --------
+  CERTIFICATE_CREATED_SUCCESS = "Certificate created successfully",
+  CERTIFICATE_FETCH_SUCCESS = "Certificates fetched successfully",
+
+  // -------- Testimonial --------
+  TESTIMONIAL_CREATED_SUCCESS = "Testimonial created successfully",
+  TESTIMONIAL_FETCH_SUCCESS = "Testimonials fetched successfully",
+
+  // -------- LinkedIn Post --------
+  LINKEDIN_POST_CREATED_SUCCESS = "LinkedIn post created successfully",
+  LINKEDIN_POST_FETCH_SUCCESS = "LinkedIn posts fetched successfully",
+
+  // -------- Student Video --------
+  STUDENT_VIDEO_CREATED_SUCCESS = "Student video created successfully",
+  STUDENT_VIDEO_FETCH_SUCCESS = "Student videos fetched successfully",
+
+  // -------- CV Profile --------
+  CV_PROFILE_CREATED_SUCCESS = "CV profile created successfully",
+  CV_PROFILE_UPDATED_SUCCESS = "CV profile updated successfully",
+  CV_PROFILE_FETCH_SUCCESS = "CV profile fetched successfully",
+  CV_PROFILE_NOT_FOUND = "CV profile not found",
+
+  // -------- CV Education --------
+  CV_EDUCATION_CREATED_SUCCESS = "CV education created successfully",
+  CV_EDUCATION_UPDATED_SUCCESS = "CV education updated successfully",
+  CV_EDUCATION_DELETED_SUCCESS = "CV education deleted successfully",
+  CV_EDUCATION_FETCH_SUCCESS = "CV education fetched successfully",
+  CV_EDUCATION_NOT_FOUND = "CV education not found",
+
+  // -------- CV Experience --------
+  CV_EXPERIENCE_CREATED_SUCCESS = "CV experience created successfully",
+  CV_EXPERIENCE_UPDATED_SUCCESS = "CV experience updated successfully",
+  CV_EXPERIENCE_DELETED_SUCCESS = "CV experience deleted successfully",
+  CV_EXPERIENCE_FETCH_SUCCESS = "CV experience fetched successfully",
+  CV_EXPERIENCE_NOT_FOUND = "CV experience not found",
 }
 
 export enum LogMessages {

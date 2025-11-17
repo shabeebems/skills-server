@@ -19,6 +19,11 @@ import skillPlannerRoutes from "./routes/skillPlanner.routes";
 import readingModuleRoutes from "./routes/readingModule.routes";
 import videoScriptRoutes from "./routes/videoScript.routes";
 import contactRoutes from "./routes/contact.routes";
+import certificateRoutes from "./routes/certificate.routes";
+import testimonialRoutes from "./routes/testimonial.routes";
+import linkedInPostRoutes from "./routes/linkedInPost.routes";
+import studentVideoRoutes from "./routes/studentVideo.routes";
+import cvRoutes from "./routes/cv.routes";
 
 dotenv.config();
 
@@ -46,6 +51,11 @@ app.use("/api/skill-planner", skillPlannerRoutes);
 app.use("/api/reading-modules", readingModuleRoutes);
 app.use("/api/video-scripts", videoScriptRoutes);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/certificates", certificateRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/linkedin-posts", linkedInPostRoutes);
+app.use("/api/student-videos", studentVideoRoutes);
+app.use("/api/cv", cvRoutes);
 
 const PORT = process.env.PORT || 5000;
 
