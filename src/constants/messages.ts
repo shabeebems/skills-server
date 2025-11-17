@@ -134,6 +134,12 @@ export enum Messages {
   VIDEO_SCRIPT_FETCH_SUCCESS = "Video scripts fetched successfully",
   VIDEO_SCRIPT_SECTIONS_FETCH_SUCCESS = "Video script sections fetched successfully",
 
+  // -------- Contact --------
+  CONTACT_CREATED_SUCCESS = "Contact created successfully",
+  CONTACT_FETCH_SUCCESS = "Contacts fetched successfully",
+  CONTACT_NOT_FOUND = "Contact not found",
+  CONTACT_DELETED_SUCCESS = "Contact deleted successfully",
+  CONTACT_UPDATED_SUCCESS = "Contact updated successfully",
   // -------- Certificate --------
   CERTIFICATE_CREATED_SUCCESS = "Certificate created successfully",
   CERTIFICATE_FETCH_SUCCESS = "Certificates fetched successfully",
