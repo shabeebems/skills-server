@@ -10,19 +10,9 @@ export class ContactService {
     const newContact = await this.contactRepository.create(data);
 
     return {
-        success: true,
-        message: Messages.CONTACT_CREATED_SUCCESS,
-        data: newContact,
-    }
-  }
-
-  public async getContactsByStudent(studentId: string): Promise<ServiceResponse> {
-    const contacts = await this.contactRepository.findByStudentId(studentId);
-
-    return {
       success: true,
-      message: Messages.CONTACT_FETCH_SUCCESS,
-      data: contacts,
+      message: Messages.CONTACT_CREATED_SUCCESS,
+      data: newContact,
     };
   }
 
@@ -33,23 +23,6 @@ export class ContactService {
       success: true,
       message: Messages.CONTACT_FETCH_SUCCESS,
       data: contacts
-    }
+    };
   }
-
-  public async addDesigContact(studentId: string, designation: string, contactData: any): Promise<ServiceResponse> {
-    
-    const newContact = await this.contactRepository.createDesigContact(
-      studentId,
-      designation,
-      contactData
-    );
-
-    return {
-      success: true,
-      message: Messages.CONTACT_CREATED_SUCCESS,
-      data: newContact
-    }; 
-  }
-
-  
 }
