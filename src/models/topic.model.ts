@@ -20,6 +20,7 @@ const TopicSchema: Schema<ITopic> = new Schema(
       type: String,
       enum: ["Easy", "Medium", "Hard"],
       required: true,
+      default: "Medium",
     },
     organizationId: {
       type: Schema.Types.ObjectId,

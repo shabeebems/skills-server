@@ -9,10 +9,12 @@ export class TeachingAssignmentService {
   public createTeachingAssignment = async (
     data: ITeachingAssignment
   ): Promise<ServiceResponse> => {
-    await this.teachingAssignmentRepository.create(data);
+    // Create individual document for each subject-teacher assignment
+    const created = await this.teachingAssignmentRepository.create(data);
     return {
       success: true,
       message: Messages.TEACHING_ASSIGNMENT_CREATED_SUCCESS,
+      data: created,
     };
   };
 
