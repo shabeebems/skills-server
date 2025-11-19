@@ -5,7 +5,6 @@ export interface IJob extends Document {
   description?: string;
   companyName: string;
   departmentId: Schema.Types.ObjectId;
-  role: string;
   place: string;
   salaryRange?: string;
   requirements?: string[];
@@ -24,7 +23,6 @@ const JobSchema: Schema<IJob> = new Schema(
       ref: "Department",
       required: true,
     },
-    role: { type: String, required: true, trim: true },
     place: { type: String, required: true, trim: true },
     salaryRange: { type: String, trim: true },
     requirements: [{ type: String, trim: true }],

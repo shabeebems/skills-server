@@ -22,67 +22,66 @@ export class teachingAssignmentRepository extends BaseRepository<ITeachingAssign
         select: "classId sectionId departmentId",
       })
       .populate({
-        path: "assignedSubTeachers.subjectId",
+        path: "subjectId",
         select: "name code",
       })
       .populate({
-        path: "assignedSubTeachers.teacherId",
+        path: "teacherId",
         select: "name",
       });
   };
 
-  // 🧩 Fetch teaching assignment by organizationId and assignmentId with full details
+  // 🧩 Fetch teaching assignments by organizationId and assignmentId with full details
   findByOrgAndAssignment = (organizationId: string, assignmentId: string) => {
     return this.model
-      .findOne({ organizationId, assignmentId })
+      .find({ organizationId, assignmentId })
       .populate({
-        path: "assignedSubTeachers.subjectId",
+        path: "subjectId",
         select: "name code",
       })
       .populate({
-        path: "assignedSubTeachers.teacherId",
+        path: "teacherId",
         select: "name",
       });
   };
 
-  // 🔁 Update teacher for an existing subject, or add if not exists
+  // 🔁 Update teacher for an existing subject, or create if not exists
   assignOrUpdateTeacher = async (
     assignmentId: string,
     organizationId: string,
     subjectId: string,
     teacherId: string
   ) => {
-    // Step 1: Try updating existing subject's teacher
-    const result = await this.model.updateOne(
+    // Use findOneAndUpdate with upsert to create or update
+    return this.model.findOneAndUpdate(
       {
         organizationId,
         assignmentId,
-        "assignedSubTeachers.subjectId": subjectId,
+        subjectId,
       },
-      { $set: { "assignedSubTeachers.$.teacherId": teacherId } }
+      {
+        organizationId,
+        assignmentId,
+        subjectId,
+        teacherId,
+      },
+      {
+        upsert: true,
+        new: true,
+      }
     );
-
-    // Step 2: If not found, push new subject-teacher entry
-    if (result.matchedCount === 0) {
-      await this.model.updateOne(
-        { assignmentId, organizationId },
-        { $push: { assignedSubTeachers: { subjectId, teacherId } } },
-        { upsert: true }
-      );
-    }
-
-    return result;
   };
 
-  // ❌ Remove a subject entry from assignedSubTeachers by subjectId
+  // ❌ Remove a subject entry by assignmentId, organizationId, and subjectId
   removeSubjectFromAssignment = async (
     assignmentId: string,
     organizationId: string,
     subjectId: string
   ) => {
-    return this.model.updateOne(
-      { assignmentId, organizationId },
-      { $pull: { assignedSubTeachers: { subjectId } } }
-    );
+    return this.model.deleteOne({
+      assignmentId,
+      organizationId,
+      subjectId,
+    });
   };
 }
